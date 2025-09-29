@@ -4,8 +4,19 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'node',
+    environment: 'jsdom',
     include: ['**/*.{test,spec}.ts?(x)'],
     exclude: ['node_modules', 'dist']
-  }
+  },
+  server: {
+    //DEV proxy settings to avoid CORS issues when fetching from CNB on localhost
+    proxy: {
+      '/cnb': {
+        target: 'https://www.cnb.cz',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/cnb/, ''),
+      },
+    },
+  },
 })
