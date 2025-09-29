@@ -7,13 +7,13 @@ type Props = {
     "aria-label"?: string;
 };
 
-export function SearchInput({ value, onChange, placeholder, ...a11y }: Props) {
+export function SearchInput({ value, onChange, placeholder, ...inputProps }: Props) {
     return (
         <InputSearch
             value={value}
             placeholder={placeholder ?? "Search code, currency, or country…"}
             onChange={(e) => onChange(e.target.value)}
-            {...a11y}
+            {...inputProps}
         />
     );
 }
