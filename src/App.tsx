@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useQuery } from "@tanstack/react-query";
+import { fetchCnbDailyRates } from "./api/cnb";
+import { GlobalStyle, Shell, HeaderBar, Title, Subtle, Card } from "./styles";
+import { Logo } from "./assets/Logo";
+import { RateList } from "./components/RateList";
+import { theme } from "./theme";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const { data, isLoading, isError, error, refetch } = useQuery({
+    queryKey: ["cnb", "daily"],
+    queryFn: fetchCnbDailyRates,
+    staleTime: 60_000,
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <GlobalStyle theme={theme} />
+      <Shell>
+        <HeaderBar>
+          <Logo size={32} />
+          <Title>Czech the Crown</Title>
+        </HeaderBar>
 
-export default App
+
+        {/*TODO: make nicer loading component */}
+        <Subtle>
+          {isLoading && "Loading latest CNB exchange rates…"}
+          {data && <>Valid for {data.date} (#{data.sequence})</>}
+        </Subtle>
+
+
+        {/* TODO: Make nicer error component */}
+        {isError && (
+          <Card role="alert">
+            Failed to load: {(error as Error).message}{" "}
+            <button onClick={() => refetch()}>Retry</button>
+          </Card>
+        )}
+
+        {data && <RateList rates={data.rates} />}
+      </Shell>
+    </>
+  );
+}
