@@ -1,7 +1,10 @@
-import type { CnbRate } from "../lib/parseCnb";
-import { Row, RowLeft, CountryCodeBadge, CurrencyText, Figure, Subtext } from "../styles";
+import type { CnbRate } from "../../lib/parseCnb";
+import { Row, RowLeft, CountryCodeBadge, CurrencyText, Figure, Subtext } from "../../styles";
 
 // TODO: Add country adjectives and flags (e.g. US Dollar, Japanese Yen)
+// TODO: Align columns in row with design of converter selection
+// TODO: align decimal points in rates
+
 export function RateRow({ rate }: { rate: CnbRate }) {
     const czkPerOne = perUnit(rate);
 

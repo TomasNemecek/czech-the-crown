@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseCnbTxt } from "../src/lib/parseCnb";
+import { parseCnbTxt } from "../../src/lib/parseCnb";
 import { CNB_DAILY_RATES_OK, MISSING_DATE, MISSING_HASHTAG, MISSING_SEQUENCE, MISSING_HEADER, MALFORMED_HEADER, EMPTY_DATA_ROWS, MALFORMED_ROW_TOO_MANY, MALFORMED_ROW_TOO_FEW, NEGATIVE_AMOUNT, ZERO_AMOUNT, MALFORMED_AMOUNT, NEGATIVE_RATE, ZERO_RATE, MALFORMED_RATE } from "./parseCnb.testdata";
 
 //HAPPY PATH: parseCnbTxt -> parseFirstLine -> validateHeader -> parseDataRows
