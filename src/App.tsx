@@ -26,9 +26,12 @@ export default function App() {
         {/*TODO: make nicer loading component */}
         <Subtle>
           {isLoading && "Loading latest CNB exchange rates…"}
-          {data && <>Valid for {data.date} (#{data.sequence})</>}
+          {data && (
+            <>
+              Valid for {data.date} (#{data.sequence})
+            </>
+          )}
         </Subtle>
-
 
         {/* TODO: Make nicer error component */}
         {isError && (
@@ -45,7 +48,6 @@ export default function App() {
             <RateList rates={data.rates} />
           </>
         )}
-
       </Shell>
     </>
   );
