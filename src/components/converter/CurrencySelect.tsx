@@ -1,5 +1,5 @@
 import Select, { type StylesConfig } from "react-select";
-import type { CnbRate } from "../../lib/parseCnb";
+import type { CnbRate } from "@/lib/parseCnb";
 
 type Props = {
   rates: CnbRate[];

@@ -1,4 +1,4 @@
-import { InputSearch } from "../../styles";
+import { InputSearch } from "@/styles";
 
 type Props = {
   value: string;

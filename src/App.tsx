@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchCnbDailyRates } from "./api/cnb";
-import { GlobalStyle, Shell, HeaderBar, Title, Subtle, Card } from "./styles";
-import { Logo } from "./assets/Logo";
-import { RateList } from "./components/ratesList/RateList";
-import { theme } from "./theme";
-import { Converter } from "./components/converter/Converter";
+import { fetchCnbDailyRates } from "@/api/cnb";
+import { GlobalStyle, Shell, HeaderBar, Title, Subtle, Card } from "@/styles";
+import { Logo } from "@/assets/Logo";
+import { RateList } from "@/components/ratesList/RateList";
+import { theme } from "@/theme";
+import { Converter } from "@/components/converter/Converter";
 
 export default function App() {
   const { data, isLoading, isError, error, refetch } = useQuery({

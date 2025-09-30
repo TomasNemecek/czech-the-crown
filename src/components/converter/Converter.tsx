@@ -1,10 +1,9 @@
 import { useMemo, useState } from "react";
-import type { CnbDailyRates, CnbRate } from "@/lib/parseCnb"
+import type { CnbDailyRates, CnbRate } from "@/lib/parseCnb";
 import { CurrencyInput } from "@/components/converter/CurrencyInput";
 import { CurrencySelect } from "@/components/converter/CurrencySelect";
 import { SwapIcon } from "@/assets/SwapIcon";
 import styled from "styled-components";
-
 
 type Props = { dailyRates: CnbDailyRates };
 

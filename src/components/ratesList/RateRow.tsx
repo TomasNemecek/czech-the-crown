@@ -1,4 +1,4 @@
-import type { CnbRate } from "../../lib/parseCnb";
+import type { CnbRate } from "@/lib/parseCnb";
 import {
   Row,
   RowLeft,
@@ -6,7 +6,7 @@ import {
   CurrencyText,
   Figure,
   Subtext,
-} from "../../styles";
+} from "@/styles";
 
 // TODO: Add country adjectives and flags (e.g. US Dollar, Japanese Yen)
 // TODO: Align columns in row with design of converter selection

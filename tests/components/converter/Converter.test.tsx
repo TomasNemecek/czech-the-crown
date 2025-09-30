@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { Converter } from "../../../src/components/converter/Converter";
-import type { CnbDailyRates } from "../../../src/lib/parseCnb";
+import { Converter } from "@/components/converter/Converter";
+import type { CnbDailyRates } from "@/lib/parseCnb";
 import userEvent from "@testing-library/user-event";
 
 const mockDailyRates: CnbDailyRates = {

@@ -1,5 +1,5 @@
 import { NumericFormat } from "react-number-format";
-import { InputNumeric } from "../../styles";
+import { InputNumeric } from "@/styles";
 
 type Props = {
   currencyCode: string;
