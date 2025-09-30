@@ -6,4 +6,8 @@ export class CnbParseError extends Error {
     this.name = "CnbParseError";
     this._line = line;
   }
+
+  get line(): string {
+    return this._line;
+  }
 }

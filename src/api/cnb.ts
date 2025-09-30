@@ -1,4 +1,5 @@
-import { parseCnbTxt, type CnbDailyRates } from "@/util/parseCnb";
+import { parseCnbTxt } from "@/util/parseCnb";
+import type { CnbDailyRates } from "@/types/CnbDailyRates";
 
 const CNB_PATH =
   "/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/daily.txt";
