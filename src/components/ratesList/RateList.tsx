@@ -2,9 +2,11 @@ import { useMemo, useState, useCallback } from "react";
 import type { CnbRate } from "@/types/CnbDailyRates";
 import { Card, List, ButtonGhost, Heading3 } from "@/styles";
 import { RateRow } from "@/components/ratesList/RateRow";
-import { SearchInput } from "@/components/ratesList//SearchInput";
+import { SearchInput } from "@/components/ratesList/SearchInput";
 
-type Props = { rates: CnbRate[] };
+type Props = {
+  rates: CnbRate[];
+};
 
 const DEFAULT_VISIBLE_ROWS_COUNT = 25;
 
@@ -22,12 +24,9 @@ export function RateList({ rates }: Props) {
   const filteredRates = useMemo(() => {
     const query = normalizeText(searchQuery);
 
-    // Sort by country code
-    const ratesList = [...rates].sort((a, b) => a.code.localeCompare(b.code));
+    if (!query) return rates;
 
-    if (!query) return ratesList;
-
-    const filteredRatesList = ratesList.filter((rate) => {
+    const filteredRatesList = rates.filter((rate) => {
       const code = rate.code.toLowerCase();
       const currency = normalizeText(rate.currency);
       const country = normalizeText(rate.country);
@@ -67,7 +66,7 @@ export function RateList({ rates }: Props) {
         </div>
       )}
 
-      {filteredRates.length === 0 && (
+      {!!filteredRates.length || (
         <p style={{ textAlign: "center" }}>No matches found.</p>
       )}
     </Card>

@@ -8,11 +8,15 @@ import {
   Subtext,
 } from "@/styles";
 
+type Props = {
+  rate: CnbRate;
+};
+
 // TODO: Add country adjectives and flags (e.g. US Dollar, Japanese Yen)
 // TODO: Align columns in row with design of converter selection
 // TODO: align decimal points in rates
 
-export function RateRow({ rate }: { rate: CnbRate }) {
+export function RateRow({ rate }: Props) {
   const czkPerOne = perUnit(rate);
 
   return (

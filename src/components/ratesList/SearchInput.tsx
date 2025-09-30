@@ -10,13 +10,13 @@ type Props = {
 export function SearchInput({
   value,
   onChange,
-  placeholder,
+  placeholder = "Search code, currency, or country…",
   ...inputProps
 }: Props) {
   return (
     <InputSearch
       value={value}
-      placeholder={placeholder ?? "Search code, currency, or country…"}
+      placeholder={placeholder}
       onChange={(e) => onChange(e.target.value)}
       {...inputProps}
     />

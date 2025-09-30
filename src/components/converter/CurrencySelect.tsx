@@ -2,18 +2,22 @@ import Select, { type StylesConfig } from "react-select";
 import type { CnbRate } from "@/types/CnbDailyRates";
 
 type Props = {
+  label: string;
   rates: CnbRate[];
   value: CnbRate | null;
-  onChange: (rate: CnbRate) => void;
   placeholder?: string;
-  isDisabled: boolean;
-  label: string;
+  isDisabled?: boolean;
+  onChange: (rate: CnbRate) => void;
 };
 
 type Option = {
   label: string;
   value: CnbRate;
 };
+
+function formatCurrencyLabel(rate: CnbRate): string {
+  return `${rate.code} | ${rate.country} ${rate.currency}`;
+}
 
 const selectStyles: StylesConfig<Option> = {
   control: (base) => ({
@@ -34,21 +38,21 @@ const selectStyles: StylesConfig<Option> = {
 };
 
 export function CurrencySelect({
+  label,
   rates,
   value,
-  onChange,
   placeholder = "Select currency...",
   isDisabled = false,
-  label,
+  onChange,
 }: Props) {
   const options: Option[] = rates.map((rate) => ({
-    label: `${rate.code} | ${rate.country} ${rate.currency}`,
+    label: formatCurrencyLabel(rate),
     value: rate,
   }));
 
   const selectedOption = value
     ? {
-        label: `${value.code} | ${value.country} ${value.currency} `,
+        label: formatCurrencyLabel(value),
         value,
       }
     : null;

@@ -5,7 +5,9 @@ import { CurrencySelect } from "@/components/converter/CurrencySelect";
 import { SwapIcon } from "@/assets/SwapIcon";
 import styled from "styled-components";
 
-type Props = { dailyRates: CnbDailyRates };
+type Props = {
+  dailyRates: CnbDailyRates;
+};
 
 const CzkRate: CnbRate = {
   country: "Czech Republic",
@@ -83,12 +85,12 @@ export function Converter({ dailyRates }: Props) {
         <CurrencyInputGroup>
           <CurrencyInputLabel>From</CurrencyInputLabel>
           <CurrencySelect
+            label="From currency"
             rates={isConversionFromCZK() ? [CzkRate] : dailyRates.rates}
             value={fromCurrency}
-            onChange={setFromCurrency}
             placeholder="From currency..."
             isDisabled={isConversionFromCZK()}
-            label="From currency"
+            onChange={setFromCurrency}
           />
         </CurrencyInputGroup>
 
@@ -103,12 +105,12 @@ export function Converter({ dailyRates }: Props) {
         <CurrencyInputGroup>
           <CurrencyInputLabel>To</CurrencyInputLabel>
           <CurrencySelect
+            label="To currency"
             rates={isConversionFromCZK() ? dailyRates.rates : [CzkRate]}
             value={toCurrency}
-            onChange={setToCurrency}
             placeholder="Select target currency..."
             isDisabled={!isConversionFromCZK()}
-            label="To currency"
+            onChange={setToCurrency}
           />
         </CurrencyInputGroup>
       </ConverterGrid>

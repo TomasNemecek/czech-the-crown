@@ -4,19 +4,20 @@ import { InputNumeric } from "@/styles";
 type Props = {
   currencyCode: string;
   value?: string | number;
-  onChange?: (value: string) => void;
   decimalScale?: number;
   placeholder?: string;
+  onChange?: (value: string) => void;
 };
 
 export function CurrencyInput({
   currencyCode,
-  value,
-  onChange,
+  value = 0,
   decimalScale = 2,
-  placeholder = `Amount in ${currencyCode}`,
-  ...rest
+  placeholder, 
+  onChange,
 }: Props) {
+  const defaultPlaceholder = `Amount in ${currencyCode}`;
+
   return (
     <NumericFormat
       value={value}
@@ -27,12 +28,11 @@ export function CurrencyInput({
       allowNegative={false}
       allowLeadingZeros={false}
       inputMode="decimal"
-      placeholder={placeholder}
-      aria-label={placeholder}
+      placeholder={placeholder ?? defaultPlaceholder}
+      aria-label={placeholder ?? defaultPlaceholder}
       customInput={InputNumeric}
       suffix={` ${currencyCode}`}
       onValueChange={({ formattedValue }) => onChange?.(formattedValue)}
-      {...rest}
     />
   );
 }
