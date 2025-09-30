@@ -58,7 +58,6 @@ export function Converter({ dailyRates }: Props) {
         setFromCurrency(CzkRate);;
     };
 
-    //TODO: combine? Memo watches the same values
     const conversionRate = useMemo(() => {
         if (!fromAmount) return null;
         if (!fromCurrency || !toCurrency) return null;
