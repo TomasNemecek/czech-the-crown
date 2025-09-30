@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseCnbTxt } from "@/lib/parseCnb";
+import { parseCnbTxt } from "@/util/parseCnb";
 import {
   CNB_DAILY_RATES_OK,
   MISSING_DATE,

@@ -1,4 +1,4 @@
-import type { CnbRate } from "@/lib/parseCnb";
+import type { CnbRate } from "@/util/parseCnb";
 import {
   Row,
   RowLeft,
