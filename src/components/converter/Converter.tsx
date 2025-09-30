@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
-import type { CnbRate } from "../../lib/parseCnb";
+import type { CnbDailyRates, CnbRate } from "../../lib/parseCnb";
 import { Card } from "../../styles";
 import { CurrencyInput } from "./CurrencyInput";
 import { CurrencySelect } from "./CurrencySelect";
 import styled from 'styled-components';
 import { SwapIcon } from "../../assets/SwapIcon";
 
-type Props = { rates: CnbRate[] };
+type Props = { dailyRates: CnbDailyRates };
 
 const CzkRate: CnbRate = {
     country: "Czech Republic",
@@ -16,21 +16,25 @@ const CzkRate: CnbRate = {
     rate: 1,
 }
 
-export function Converter({ rates }: Props) {
+function getConversionRate(from: CnbRate, to: CnbRate): number {
+    if (from.code === "CZK") {
+        const ratePerUnit = to.rate / to.amount;
+        return 1 / ratePerUnit;
+    } else {
+        const ratePerUnit = from.rate / from.amount;
+        return ratePerUnit;
+    }
+}
+
+export function Converter({ dailyRates }: Props) {
     const [fromCurrency, setFromCurrency] = useState<CnbRate>(CzkRate);
     const [toCurrency, setToCurrency] = useState<CnbRate | null>(null);
     const [inputValue, setInputValue] = useState<string>("");
     const [fromAmount, setFromAmount] = useState<number>(0);
 
-    const conversionRate = useMemo(() => {
-        if (!toCurrency) return null;
-        return 1 / (toCurrency.rate / toCurrency.amount);
-    }, [toCurrency]);
-
-    const convertedAmount = useMemo(() => {
-        if (!conversionRate) return null;
-        return fromAmount * conversionRate;
-    }, [fromAmount, conversionRate]);
+    const isConversionFromCZK = (): boolean => {
+        return fromCurrency.code === "CZK";
+    };
 
     const handleInputChange = (input: string) => {
         setInputValue(input);
@@ -41,8 +45,34 @@ export function Converter({ rates }: Props) {
         setFromAmount(isNaN(parsed) ? 0 : parsed);
     };
 
+    const handleSwapCurrency = () => {
+        if (!toCurrency) return;
+
+        //Swap CZK to target currency
+        if (isConversionFromCZK()) {
+            setFromCurrency(toCurrency);
+            setToCurrency(CzkRate);
+            return;
+        }
+
+        setToCurrency(fromCurrency)
+        setFromCurrency(CzkRate);;
+    };
+
+    const conversionRate = useMemo(() => {
+        if (!fromAmount) return null;
+        if (!fromCurrency || !toCurrency) return null;
+
+        return getConversionRate(fromCurrency, toCurrency);
+    }, [fromAmount, toCurrency, fromCurrency]);
+
+    const convertedAmount = useMemo(() => {
+        if (!conversionRate) return null;
+        return fromAmount * conversionRate;
+    }, [fromAmount, conversionRate]);
+
     return (
-        <Card>
+        <ConverterLayout>
             <ConverterGrid>
                 <CurrencyInputGroup>
                     <CurrencyInputLabel>Amount</CurrencyInputLabel>
@@ -56,17 +86,17 @@ export function Converter({ rates }: Props) {
                 <CurrencyInputGroup>
                     <CurrencyInputLabel>From</CurrencyInputLabel>
                     <CurrencySelect
-                        rates={[fromCurrency]}
+                        rates={isConversionFromCZK() ? [CzkRate] : dailyRates.rates}
                         value={fromCurrency}
-                        onChange={() => { }}
+                        onChange={setFromCurrency}
                         placeholder="From currency..."
-                        isDisabled
+                        isDisabled={isConversionFromCZK()}
                     />
                 </CurrencyInputGroup>
 
                 <SwapButton
                     type="button"
-                    onClick={() => { }}
+                    onClick={handleSwapCurrency}
                     aria-label="Swap currencies"
                 >
                     <SwapIcon />
@@ -75,10 +105,11 @@ export function Converter({ rates }: Props) {
                 <CurrencyInputGroup>
                     <CurrencyInputLabel>To</CurrencyInputLabel>
                     <CurrencySelect
-                        rates={rates}
+                        rates={isConversionFromCZK() ? dailyRates.rates : [CzkRate]}
                         value={toCurrency}
                         onChange={setToCurrency}
                         placeholder="Select target currency..."
+                        isDisabled={!isConversionFromCZK()}
                     />
                 </CurrencyInputGroup>
             </ConverterGrid>
@@ -93,18 +124,50 @@ export function Converter({ rates }: Props) {
                             maximumFractionDigits: 2,
                             useGrouping: true
                         }).format(convertedAmount)
-                        } {toCurrency.code}
+                        } {toCurrency.country} {toCurrency.currency}
                     </ResultAmount>
                     <RateInfo>
-                        1 {CzkRate.code} = {conversionRate?.toFixed(3)} {toCurrency.code}<br />
-                        1 {toCurrency.code} = {(toCurrency.rate / toCurrency.amount).toFixed(3)} {CzkRate.code}
+                        1 {fromCurrency.code} = {getConversionRate(fromCurrency, toCurrency)?.toFixed(3)} {toCurrency.code}<br />
+                        1 {toCurrency.code} = {getConversionRate(toCurrency, fromCurrency)?.toFixed(3)} {fromCurrency.code}
                     </RateInfo>
+                    <DateInfo>Last updated on {dailyRates.date} at 14.30</DateInfo>
                 </ResultContainer>
             )}
-        </Card>
+        </ConverterLayout>
     );
 }
 
+const ConverterLayout = styled.div`
+     background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+
+    > div:first-child {
+        display: grid;
+        gap: 12px;
+        align-items: end;
+
+        /* Default mobile layout - stacked */
+        grid-template-columns: 1fr;
+
+        /* Tablet and up - side by side */
+        @media (min-width: 768px) {
+            grid-template-columns: minmax(150px, 1fr) minmax(200px, 1fr) auto minmax(200px, 1fr);
+        }
+
+        /* Stack swap button horizontally on mobile */
+        > button {
+            justify-self: center;
+            transform: rotate(90deg);
+
+            @media (min-width: 768px) {
+                transform: none;
+            }
+        }
+    }
+
+`;
 
 const SwapButton = styled.button`
     background: white;
@@ -129,14 +192,9 @@ const ConverterGrid = styled.div`
     align-items: center;
 `;
 
-const ResultContainer = styled.div`
-    margin-top: 20px;
-    text-align: ;
-`;
-
 const ResultEquals = styled.div`
     font-size: 16px;
-    margin-top: 24px;
+    margin-top: 16px;
     margin-bottom: 8px;
 `;
 
@@ -161,4 +219,15 @@ const CurrencyInputLabel = styled.label`
 const CurrencyInputGroup = styled.div`
     display: flex;
     flex-direction: column;
+`;
+
+const ResultContainer = styled.div`
+    text-align: left;
+`;
+
+const DateInfo = styled.div`
+    color: var(--subtle);
+    font-size: 8px;
+    line-height: 1.5;
+    padding-top: 12px;
 `;

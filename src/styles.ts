@@ -153,7 +153,6 @@ export const Heading3 = styled.h3`
 `;
 
 // --- Converter styles ---
-export const ConverterCard = Card;
 
 export const InputNumeric = styled.input`
   width: 100%;

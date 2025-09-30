@@ -1,4 +1,4 @@
-import Select from 'react-select';
+import Select, { type StylesConfig } from 'react-select';
 import type { CnbRate } from '../../lib/parseCnb';
 
 type Props = {
@@ -6,12 +6,30 @@ type Props = {
     value: CnbRate | null;
     onChange: (rate: CnbRate) => void;
     placeholder?: string;
-    isDisabled?: boolean;
+    isDisabled: boolean;
 };
 
 type Option = {
     label: string;
     value: CnbRate;
+};
+
+const selectStyles: StylesConfig<Option> = {
+    control: (base) => ({
+        ...base,
+        width: '100%',
+        borderColor: 'var(--border)',
+        borderRadius: '10px',
+        transition: 'none',
+        '&:hover': {
+            borderColor: 'var(--gold)'
+        }
+    }),
+    container: (base) => ({
+        ...base,
+        width: '100%',
+        transition: 'none'
+    }),
 };
 
 export function CurrencySelect({
@@ -38,6 +56,7 @@ export function CurrencySelect({
             onChange={(option) => option && onChange(option.value)}
             placeholder={placeholder}
             isDisabled={isDisabled}
+            styles={selectStyles}
         />
     );
 }

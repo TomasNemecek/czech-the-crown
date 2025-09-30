@@ -40,7 +40,7 @@ export default function App() {
 
         {data && (
           <>
-            <Converter rates={data.rates} />
+            <Converter dailyRates={data} />
             <div style={{ height: 12 }} />
             <RateList rates={data.rates} />
           </>
