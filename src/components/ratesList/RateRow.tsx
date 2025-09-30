@@ -18,19 +18,22 @@ type Props = {
 
 export function RateRow({ rate }: Props) {
   const czkPerOne = perUnit(rate);
+  const formattedRate = czkPerOne.toLocaleString(undefined, { maximumFractionDigits: 3 });
 
   return (
-    <Row aria-label={`${rate.code} row`}>
+    <Row 
+      role="listitem"
+      aria-label={`${rate.code}: ${formattedRate} CZK per 1 ${rate.code}. ${rate.country} ${rate.currency}`}
+    >
       <RowLeft>
-        <CountryCodeBadge>{rate.code}</CountryCodeBadge>
+        <CountryCodeBadge aria-hidden="true">{rate.code}</CountryCodeBadge>
         <CurrencyText>
           {rate.country} | {rate.currency}
         </CurrencyText>
       </RowLeft>
       <div>
         <Figure>
-          {czkPerOne.toLocaleString(undefined, { maximumFractionDigits: 3 })}{" "}
-          CZK
+          {formattedRate} CZK
         </Figure>
         <Subtext>per 1 {rate.code}</Subtext>
       </div>

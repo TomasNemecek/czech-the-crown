@@ -43,16 +43,16 @@ export function RateList({ rates }: Props) {
   const hasMoreRowsToShow = filteredRates.length > visibleRowsCount;
 
   return (
-    <Card>
-      <Heading3>Exchange Rate</Heading3>
+    <Card role="region" aria-labelledby="rates-heading">
+      <Heading3 id="rates-heading">Exchange Rates</Heading3>
 
       <SearchInput
         value={searchQuery}
         onChange={onSearchChange}
-        aria-label="Filter rates"
+        aria-label="Search currencies by code, name, or country"
       />
 
-      <List>
+      <List role="list" aria-label="Currency exchange rates">
         {visibleRates.map((rate) => (
           <RateRow key={rate.code} rate={rate} />
         ))}
@@ -60,14 +60,19 @@ export function RateList({ rates }: Props) {
 
       {hasMoreRowsToShow && (
         <div style={{ marginTop: 10, textAlign: "center" }}>
-          <ButtonGhost onClick={() => setVisibleCount(filteredRates.length)}>
+          <ButtonGhost 
+            onClick={() => setVisibleCount(filteredRates.length)}
+            aria-label={`Show all ${filteredRates.length} exchange rates`}
+          >
             Show all {filteredRates.length}
           </ButtonGhost>
         </div>
       )}
 
       {!!filteredRates.length || (
-        <p style={{ textAlign: "center" }}>No matches found.</p>
+        <p style={{ textAlign: "center" }} role="status" aria-live="polite">
+          No matches found.
+        </p>
       )}
     </Card>
   );

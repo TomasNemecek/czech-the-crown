@@ -71,25 +71,27 @@ export function Converter({ dailyRates }: Props) {
   }, [fromAmount, conversionRate]);
 
   return (
-    <ConverterLayout>
+    <ConverterLayout role="region" aria-labelledby="converter-heading">
       <ConverterGrid>
         <CurrencyInputGroup>
-          <CurrencyInputLabel>Amount</CurrencyInputLabel>
+          <CurrencyInputLabel id="amount-label">Amount</CurrencyInputLabel>
           <CurrencyInput
             currencyCode={fromCurrency.code}
             value={fromAmount}
             onChange={handleInputChange}
+            aria-label={`Enter amount to convert from ${fromCurrency.code}`}
           />
         </CurrencyInputGroup>
 
         <CurrencyInputGroup>
-          <CurrencyInputLabel>From</CurrencyInputLabel>
+          <CurrencyInputLabel id="from-label">From</CurrencyInputLabel>
           <CurrencySelect
             label="From currency"
             rates={isConversionFromCZK() ? [CzkRate] : dailyRates.rates}
             value={fromCurrency}
             placeholder="From currency..."
             isDisabled={isConversionFromCZK()}
+            aria-label="Select source currency"
             onChange={setFromCurrency}
           />
         </CurrencyInputGroup>
@@ -97,26 +99,27 @@ export function Converter({ dailyRates }: Props) {
         <SwapButton
           type="button"
           onClick={handleSwapCurrency}
-          aria-label="Swap currencies"
+          aria-label="Swap source and target currencies"
         >
-          <SwapIcon />
+          <SwapIcon aria-hidden="true" />
         </SwapButton>
 
         <CurrencyInputGroup>
-          <CurrencyInputLabel>To</CurrencyInputLabel>
+          <CurrencyInputLabel id="to-label">To</CurrencyInputLabel>
           <CurrencySelect
             label="To currency"
             rates={isConversionFromCZK() ? dailyRates.rates : [CzkRate]}
             value={toCurrency}
             placeholder="Select target currency..."
             isDisabled={!isConversionFromCZK()}
+            aria-label="Select target currency"
             onChange={setToCurrency}
           />
         </CurrencyInputGroup>
       </ConverterGrid>
 
       {toCurrency && convertedAmount !== null && (
-        <ResultContainer>
+        <ResultContainer role="region" aria-label="Conversion result">
           <ResultEquals>{inputValue} =</ResultEquals>
           <ResultAmount>
             {Intl.NumberFormat("cs-CZ", {
@@ -126,7 +129,7 @@ export function Converter({ dailyRates }: Props) {
             }).format(convertedAmount)}{" "}
             {toCurrency.country} {toCurrency.currency}
           </ResultAmount>
-          <RateInfo>
+          <RateInfo aria-label="Exchange rate information">
             1 {fromCurrency.code} ={" "}
             {getConversionRate(fromCurrency, toCurrency)?.toFixed(3)}{" "}
             {toCurrency.code}
@@ -185,9 +188,14 @@ const SwapButton = styled.button`
   align-items: center;
   justify-content: center;
 
-  &:hover {
+  &:hover:not(:disabled) {
     border-color: var(--gold);
     background: var(--goldSoft);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 `;
 

@@ -7,6 +7,7 @@ type Props = {
   value: CnbRate | null;
   placeholder?: string;
   isDisabled?: boolean;
+  "aria-label"?: string;
   onChange: (rate: CnbRate) => void;
 };
 
@@ -43,6 +44,7 @@ export function CurrencySelect({
   value,
   placeholder = "Select currency...",
   isDisabled = false,
+  "aria-label": ariaLabel,
   onChange,
 }: Props) {
   const options: Option[] = rates.map((rate) => ({
@@ -65,7 +67,8 @@ export function CurrencySelect({
       placeholder={placeholder}
       isDisabled={isDisabled}
       styles={selectStyles}
-      aria-label={label}
+      aria-label={ariaLabel ?? label}
+      inputId={`currency-select-${label.toLowerCase().replace(/\s+/g, '-')}`}
     />
   );
 }

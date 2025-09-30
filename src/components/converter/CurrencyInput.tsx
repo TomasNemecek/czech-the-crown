@@ -6,6 +6,7 @@ type Props = {
   value?: string | number;
   decimalScale?: number;
   placeholder?: string;
+  "aria-label"?: string;
   onChange?: (value: string) => void;
 };
 
@@ -13,10 +14,12 @@ export function CurrencyInput({
   currencyCode,
   value = 0,
   decimalScale = 2,
-  placeholder, 
+  placeholder,
+  "aria-label": ariaLabel,
   onChange,
 }: Props) {
   const defaultPlaceholder = `Amount in ${currencyCode}`;
+  const defaultAriaLabel = `Enter amount in ${currencyCode}`;
 
   return (
     <NumericFormat
@@ -29,7 +32,7 @@ export function CurrencyInput({
       allowLeadingZeros={false}
       inputMode="decimal"
       placeholder={placeholder ?? defaultPlaceholder}
-      aria-label={placeholder ?? defaultPlaceholder}
+      aria-label={ariaLabel ?? defaultAriaLabel}
       customInput={InputNumeric}
       suffix={` ${currencyCode}`}
       onValueChange={({ formattedValue }) => onChange?.(formattedValue)}
