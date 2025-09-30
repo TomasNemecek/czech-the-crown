@@ -1,5 +1,6 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import { resolve } from "path";
 
 export default defineConfig({
   plugins: [react()],
@@ -9,6 +10,11 @@ export default defineConfig({
     include: ["**/*.{test,spec}.ts?(x)"],
     exclude: ["node_modules", "dist"],
     globals: true,
+  },
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "./src"),
+    },
   },
   server: {
     //DEV proxy settings to avoid CORS issues when fetching from CNB on localhost
