@@ -28,10 +28,10 @@ function getConversionRate(from: CnbRate, to: CnbRate): number {
 }
 
 export function Converter({ dailyRates }: Props) {
-  const [fromCurrency, setFromCurrency] = useState<CnbRate>(CzkRate);
+  const [fromCurrency, setFromCurrency] = useState(CzkRate);
   const [toCurrency, setToCurrency] = useState<CnbRate | null>(null);
-  const [inputValue, setInputValue] = useState<string>("");
-  const [fromAmount, setFromAmount] = useState<number>(0);
+  const [inputValue, setInputValue] = useState("");
+  const [fromAmount, setFromAmount] = useState(0);
 
   const isConversionFromCZK = (): boolean => {
     return fromCurrency.code === "CZK";
