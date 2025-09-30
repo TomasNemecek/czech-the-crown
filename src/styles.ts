@@ -71,7 +71,7 @@ export const InputSearch = styled.input`
 
   &:focus {
     border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(212,175,55,0.25);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
     outline: none;
   }
 `;
@@ -88,10 +88,12 @@ export const Row = styled.div`
   grid-template-columns: 1fr auto;
   align-items: baseline;
   gap: 10px;
-  padding: 10px 8px;         
+  padding: 10px 8px;
   border-bottom: 1px solid var(--border);
 
-  &:hover { background: var(--goldSoft); }
+  &:hover {
+    background: var(--goldSoft);
+  }
 `;
 
 export const RowLeft = styled.div`
@@ -110,9 +112,14 @@ export const CountryCodeBadge = styled.span`
   color: var(--text);
   background: linear-gradient(180deg, #fffdf3 0%, #fff4cf 100%);
   border: 1px solid rgba(212, 175, 55, 0.45);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.55);
-  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.06s ease;
-
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.06s ease;
 `;
 
 export const CurrencyText = styled.span`
@@ -142,8 +149,10 @@ export const ButtonGhost = styled.button`
   border: 1px solid var(--border);
   background: #fff;
   cursor: pointer;
-  transition: transform .06s ease;
-  &:hover { transform: translateY(-1px); }
+  transition: transform 0.06s ease;
+  &:hover {
+    transform: translateY(-1px);
+  }
 `;
 
 export const Heading3 = styled.h3`
@@ -165,7 +174,7 @@ export const InputNumeric = styled.input`
   font-variant-numeric: tabular-nums;
   &:focus {
     border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(212,175,55,0.25);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
     outline: none;
   }
 `;

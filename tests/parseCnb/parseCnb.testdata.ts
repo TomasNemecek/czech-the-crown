@@ -39,7 +39,6 @@ Country|Currency|Amount|Code
 Australia|dollar|1|AUD|13.604
 `;
 
-
 // Malformed Data Rows test data for CNB parser tests
 export const EMPTY_DATA_ROWS = `
 26 Sep 2025 #188
@@ -50,47 +49,47 @@ export const MALFORMED_ROW_TOO_MANY = `
 26 Sep 2025 #188
 Country|Currency|Amount|Code|Rate
 Australia|dollar|1|AUD|13.604|EXTRA
-`
+`;
 
 export const MALFORMED_ROW_TOO_FEW = `
 26 Sep 2025 #188
 Country|Currency|Amount|Code|Rate
 Australia|dollar|1|AUD|13.604
 Brazil|real|1|BRL
-`
+`;
 
 export const NEGATIVE_AMOUNT = `
 26 Sep 2025 #188
 Country|Currency|Amount|Code|Rate
 Australia|dollar|-1|AUD|13.604
-`
+`;
 
 export const ZERO_AMOUNT = `
 26 Sep 2025 #188
 Country|Currency|Amount|Code|Rate
 Australia|dollar|0|AUD|13.604
-`
+`;
 
 export const MALFORMED_AMOUNT = `
 26 Sep 2025 #188
 Country|Currency|Amount|Code|Rate
 Australia|dollar|one|AUD|13.604
-`
+`;
 
 export const NEGATIVE_RATE = `
 26 Sep 2025 #188
 Country|Currency|Amount|Code|Rate
 Australia|dollar|1|AUD|-13.604
-`
+`;
 
 export const ZERO_RATE = ` 
 26 Sep 2025 #188
 Country|Currency|Amount|Code|Rate
 Australia|dollar|1|AUD|0
-`
+`;
 
 export const MALFORMED_RATE = `
 26 Sep 2025 #188
 Country|Currency|Amount|Code|Rate
 Australia|dollar|1|AUD|thirteen
-`
+`;

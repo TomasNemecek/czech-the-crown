@@ -1,19 +1,19 @@
 {
-    "rewrites": [
+  "rewrites": [
+    {
+      "source": "/cnb/(.*)",
+      "destination": "https://www.cnb.cz/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/cnb/(.*)",
+      "headers": [
         {
-            "source": "/cnb/(.*)",
-            "destination": "https://www.cnb.cz/$1"
+          "key": "Cache-Control",
+          "value": "s-maxage=900, stale-while-revalidate"
         }
-    ],
-    "headers": [
-        {
-            "source": "/cnb/(.*)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "s-maxage=900, stale-while-revalidate"
-                }
-            ]
-        }
-    ]
+      ]
+    }
+  ]
 }

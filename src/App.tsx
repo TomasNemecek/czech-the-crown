@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchCnbDailyRates } from "./api/cnb";
-import { GlobalStyle, Shell, HeaderBar, Title, Subtle, Card } from "./styles";
-import { Logo } from "./assets/Logo";
-import { RateList } from "./components/ratesList/RateList";
-import { theme } from "./theme";
-import { Converter } from "./components/converter/Converter";
+import { fetchCnbDailyRates } from "@/api/cnb";
+import { GlobalStyle, Shell, HeaderBar, Title, Subtle, Card } from "@/styles";
+import { Logo } from "@/assets/Logo";
+import { RateList } from "@/components/ratesList/RateList";
+import { theme } from "@/theme";
+import { Converter } from "@/components/converter/Converter";
 
 export default function App() {
   const { data, isLoading, isError, error, refetch } = useQuery({
@@ -26,9 +26,12 @@ export default function App() {
         {/*TODO: make nicer loading component */}
         <Subtle>
           {isLoading && "Loading latest CNB exchange rates…"}
-          {data && <>Valid for {data.date} (#{data.sequence})</>}
+          {data && (
+            <>
+              Valid for {data.date} (#{data.sequence})
+            </>
+          )}
         </Subtle>
-
 
         {/* TODO: Make nicer error component */}
         {isError && (
@@ -45,7 +48,6 @@ export default function App() {
             <RateList rates={data.rates} />
           </>
         )}
-
       </Shell>
     </>
   );
