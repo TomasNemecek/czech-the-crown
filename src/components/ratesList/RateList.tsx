@@ -1,8 +1,8 @@
 import { useMemo, useState, useCallback } from "react";
-import type { CnbRate } from "../lib/parseCnb";
-import { Card, List, ButtonGhost, Heading3 } from "../styles";
-import { RateRow } from "./RateRow";
-import { SearchInput } from "./SearchInput";
+import type { CnbRate } from "../../lib/parseCnb";
+import { Card, List, ButtonGhost, Heading3 } from "../../styles";
+import { RateRow } from "./RateRow"
+import { SearchInput } from "./SearchInput"
 
 type Props = { rates: CnbRate[] };
 

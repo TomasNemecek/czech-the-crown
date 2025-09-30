@@ -88,7 +88,7 @@ export const Row = styled.div`
   grid-template-columns: 1fr auto;
   align-items: baseline;
   gap: 10px;
-  padding: 10px 8px;                 /* ↓ from 12px */
+  padding: 10px 8px;         
   border-bottom: 1px solid var(--border);
 
   &:hover { background: var(--goldSoft); }
@@ -113,12 +113,6 @@ export const CountryCodeBadge = styled.span`
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.55);
   transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.06s ease;
 
-  &:hover {
-    background: var(--goldSoft);
-    border-color: var(--gold);
-    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.18);
-    transform: translateY(-1px);
-  }
 `;
 
 export const CurrencyText = styled.span`
@@ -158,3 +152,20 @@ export const Heading3 = styled.h3`
   font-weight: 700;
 `;
 
+// --- Converter styles ---
+
+export const InputNumeric = styled.input`
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  &:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.25);
+    outline: none;
+  }
+`;
