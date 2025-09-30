@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback } from "react";
-import type { CnbRate } from "@/util/parseCnb";
+import type { CnbRate } from "@/types/CnbDailyRates";
 import { Card, List, ButtonGhost, Heading3 } from "@/styles";
 import { RateRow } from "@/components/ratesList/RateRow";
 import { SearchInput } from "@/components/ratesList//SearchInput";

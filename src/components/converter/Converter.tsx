@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import type { CnbDailyRates, CnbRate } from "@/util/parseCnb";
+import type { CnbDailyRates, CnbRate } from "@/types/CnbDailyRates";
 import { CurrencyInput } from "@/components/converter/CurrencyInput";
 import { CurrencySelect } from "@/components/converter/CurrencySelect";
 import { SwapIcon } from "@/assets/SwapIcon";
