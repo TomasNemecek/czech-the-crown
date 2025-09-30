@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import type { CnbDailyRates, CnbRate } from "../../lib/parseCnb";
-import { Card } from "../../styles";
 import { CurrencyInput } from "./CurrencyInput";
 import { CurrencySelect } from "./CurrencySelect";
 import styled from 'styled-components';
@@ -59,6 +58,7 @@ export function Converter({ dailyRates }: Props) {
         setFromCurrency(CzkRate);;
     };
 
+    //TODO: combine? Memo watches the same values
     const conversionRate = useMemo(() => {
         if (!fromAmount) return null;
         if (!fromCurrency || !toCurrency) return null;
@@ -91,6 +91,7 @@ export function Converter({ dailyRates }: Props) {
                         onChange={setFromCurrency}
                         placeholder="From currency..."
                         isDisabled={isConversionFromCZK()}
+                        label="From currency"
                     />
                 </CurrencyInputGroup>
 
@@ -110,6 +111,7 @@ export function Converter({ dailyRates }: Props) {
                         onChange={setToCurrency}
                         placeholder="Select target currency..."
                         isDisabled={!isConversionFromCZK()}
+                        label="To currency"
                     />
                 </CurrencyInputGroup>
             </ConverterGrid>
@@ -206,8 +208,7 @@ const ResultAmount = styled.div`
 
 const RateInfo = styled.div`
     color: var(--subtle);
-    font-size: 8px;
-    line-height: 1.5;
+    font-size: 10px;
 `;
 
 const CurrencyInputLabel = styled.label`
@@ -227,7 +228,8 @@ const ResultContainer = styled.div`
 
 const DateInfo = styled.div`
     color: var(--subtle);
-    font-size: 8px;
+    font-size: 12px;
     line-height: 1.5;
     padding-top: 12px;
+    text-align: right;
 `;

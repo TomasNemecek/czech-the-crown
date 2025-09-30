@@ -7,6 +7,7 @@ type Props = {
     onChange: (rate: CnbRate) => void;
     placeholder?: string;
     isDisabled: boolean;
+    label: string;
 };
 
 type Option = {
@@ -38,6 +39,7 @@ export function CurrencySelect({
     onChange,
     placeholder = "Select currency...",
     isDisabled = false,
+    label
 }: Props) {
     const options: Option[] = rates.map(rate => ({
         label: `${rate.code} | ${rate.country} ${rate.currency}`,
@@ -57,6 +59,7 @@ export function CurrencySelect({
             placeholder={placeholder}
             isDisabled={isDisabled}
             styles={selectStyles}
+            aria-label={label}
         />
     );
 }
