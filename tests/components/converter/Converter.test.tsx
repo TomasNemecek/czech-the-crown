@@ -44,7 +44,7 @@ describe("Converter", () => {
   it("renders initial state correctly", () => {
     //Label + Input Field is present and set to 0 CZK
     expect(screen.getByText("Amount")).toBeInTheDocument();
-    const inputField = screen.getByRole("textbox", { name: INPUT_FIELD_NAME});
+    const inputField = screen.getByRole("textbox", { name: INPUT_FIELD_NAME });
     expect(inputField).toBeInTheDocument();
     //NumberFormat has &nbsp; as whitespace so we use regex to match for 0 CZK with any whitespace in between
     expect(inputField).toHaveDisplayValue(/0\s+CZK/);
@@ -86,13 +86,15 @@ describe("Converter", () => {
     // Check conversion result
     expect(screen.getByText("100 CZK =")).toBeInTheDocument();
     expect(screen.getByText("7,35 Australia dollar")).toBeInTheDocument();
-    expect(
-      screen.getByText(/1\s+CZK\s+=\s+0[.,]07[0-9]*\s+AUD/),
-    ).toBeInTheDocument();
+
+    // Check rate info with Czech locale formatting
+    const rateInfo = screen.getByLabelText("Exchange rate information");
+    expect(rateInfo.textContent).toContain("0,074");
+    expect(rateInfo.textContent).toContain("13,604");
   });
 
   it("swaps currencies correctly", async () => {
- // Input 100 CZK
+    // Input 100 CZK
     const inputField = screen.getByRole("textbox", { name: INPUT_FIELD_NAME });
     await user.type(inputField, "100");
     expect(inputField).toHaveDisplayValue(/100\s+CZK/);

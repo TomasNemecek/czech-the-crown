@@ -132,10 +132,18 @@ export function Converter({ dailyRates }: Props) {
 
           <RateInfo aria-label="Exchange rate information">
             1 {fromCurrency.code} ={" "}
-            {getConversionRate(fromCurrency, toCurrency)?.toFixed(3)}{" "}
+            {getConversionRate(fromCurrency, toCurrency)?.toLocaleString("cs-CZ", {
+              minimumFractionDigits: 3,
+              maximumFractionDigits: 3,
+              useGrouping: true,
+            })}{" "}
             {toCurrency.code}
             <br />1 {toCurrency.code} ={" "}
-            {getConversionRate(toCurrency, fromCurrency)?.toFixed(3)}{" "}
+            {getConversionRate(toCurrency, fromCurrency)?.toLocaleString("cs-CZ", {
+              minimumFractionDigits: 3,
+              maximumFractionDigits: 3,
+              useGrouping: true,
+            })}{" "}
             {fromCurrency.code}
           </RateInfo>
           <DateInfo>Last updated on {dailyRates.date} at 14.30</DateInfo>
