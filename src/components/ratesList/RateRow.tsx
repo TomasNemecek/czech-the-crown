@@ -13,7 +13,7 @@ export function RateRow({ rate }: Props) {
   const czkPerOne = perUnit(rate);
   const formattedRate = czkPerOne.toLocaleString("cs-CZ", {
     maximumFractionDigits: 3,
-    useGrouping: true
+    useGrouping: true,
   });
 
   return (
@@ -28,9 +28,7 @@ export function RateRow({ rate }: Props) {
         </CurrencyText>
       </RowLeft>
       <div>
-        <Figure>
-          {formattedRate} CZK
-        </Figure>
+        <Figure>{formattedRate} CZK</Figure>
         <Subtext>per 1 {rate.code}</Subtext>
       </div>
     </Row>
@@ -71,7 +69,7 @@ const CountryCodeBadge = styled.span`
   background: linear-gradient(180deg, #fffdf3 0%, #fff4cf 100%);
   border: 1px solid rgba(212, 175, 55, 0.45);
   box-shadow: var(--shadow-sm);
-  transition: 
+  transition:
     background var(--transition-normal),
     border-color var(--transition-normal),
     box-shadow var(--transition-normal),

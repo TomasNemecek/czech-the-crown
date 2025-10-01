@@ -14,7 +14,6 @@ export function SearchInput({
   placeholder = "Search code, currency, or country…",
   ...inputProps
 }: Props) {
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const sanitizedValue = sanitizeInput(event.target.value, 50);
     onChange(sanitizedValue);

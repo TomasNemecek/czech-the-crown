@@ -36,7 +36,7 @@ const selectStyles: StylesConfig<Option> = {
     "& input": {
       outline: "none",
       boxShadow: "none",
-    }
+    },
   }),
 };
 
@@ -60,9 +60,9 @@ export function CurrencySelect({
 
   const selectedOption = value
     ? {
-      label: formatCurrencyLabel(value),
-      value,
-    }
+        label: formatCurrencyLabel(value),
+        value,
+      }
     : null;
 
   return (
@@ -73,7 +73,7 @@ export function CurrencySelect({
       isDisabled={isDisabled}
       styles={selectStyles}
       aria-label={ariaLabel ?? label}
-      inputId={`currency-select-${label.toLowerCase().replace(/\s+/g, '-')}`}
+      inputId={`currency-select-${label.toLowerCase().replace(/\s+/g, "-")}`}
       onChange={(option) => option && onChange(option.value)}
       onInputChange={handleInputChange}
     />

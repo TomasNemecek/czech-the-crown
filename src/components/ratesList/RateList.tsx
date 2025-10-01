@@ -71,7 +71,11 @@ export function RateList({ rates }: Props) {
       )}
 
       {!!filteredRates.length || (
-        <p style={{ textAlign: "center", margin: "var(--spacing-md) 0" }} role="status" aria-live="polite">
+        <p
+          style={{ textAlign: "center", margin: "var(--spacing-md) 0" }}
+          role="status"
+          aria-live="polite"
+        >
           No matches found.
         </p>
       )}
@@ -101,7 +105,7 @@ const ButtonGhost = styled.button`
   background: #fff;
   cursor: pointer;
   transition: transform var(--transition-fast);
-  
+
   &:hover {
     transform: translateY(-1px);
   }
