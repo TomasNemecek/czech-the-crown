@@ -5,7 +5,9 @@ import { CurrencySelect } from "@/components/converter/CurrencySelect";
 import { SwapIcon } from "@/assets/SwapIcon";
 import styled from "styled-components";
 
-type Props = { dailyRates: CnbDailyRates };
+type Props = {
+  dailyRates: CnbDailyRates;
+};
 
 const CzkRate: CnbRate = {
   country: "Czech Republic",
@@ -26,10 +28,10 @@ function getConversionRate(from: CnbRate, to: CnbRate): number {
 }
 
 export function Converter({ dailyRates }: Props) {
-  const [fromCurrency, setFromCurrency] = useState<CnbRate>(CzkRate);
+  const [fromCurrency, setFromCurrency] = useState(CzkRate);
   const [toCurrency, setToCurrency] = useState<CnbRate | null>(null);
-  const [inputValue, setInputValue] = useState<string>("");
-  const [fromAmount, setFromAmount] = useState<number>(0);
+  const [inputValue, setInputValue] = useState("");
+  const [fromAmount, setFromAmount] = useState(0);
 
   const isConversionFromCZK = (): boolean => {
     return fromCurrency.code === "CZK";
@@ -69,52 +71,55 @@ export function Converter({ dailyRates }: Props) {
   }, [fromAmount, conversionRate]);
 
   return (
-    <ConverterLayout>
+    <ConverterLayout role="region" aria-labelledby="converter-heading">
       <ConverterGrid>
         <CurrencyInputGroup>
-          <CurrencyInputLabel>Amount</CurrencyInputLabel>
+          <CurrencyInputLabel id="amount-label">Amount</CurrencyInputLabel>
           <CurrencyInput
             currencyCode={fromCurrency.code}
             value={fromAmount}
             onChange={handleInputChange}
+            aria-label={`Enter amount to convert from ${fromCurrency.code}`}
           />
         </CurrencyInputGroup>
 
         <CurrencyInputGroup>
-          <CurrencyInputLabel>From</CurrencyInputLabel>
+          <CurrencyInputLabel id="from-label">From</CurrencyInputLabel>
           <CurrencySelect
+            label="From currency"
             rates={isConversionFromCZK() ? [CzkRate] : dailyRates.rates}
             value={fromCurrency}
-            onChange={setFromCurrency}
             placeholder="From currency..."
             isDisabled={isConversionFromCZK()}
-            label="From currency"
+            aria-label="Select source currency"
+            onChange={setFromCurrency}
           />
         </CurrencyInputGroup>
 
         <SwapButton
           type="button"
           onClick={handleSwapCurrency}
-          aria-label="Swap currencies"
+          aria-label="Swap source and target currencies"
         >
-          <SwapIcon />
+          <SwapIcon aria-hidden="true" />
         </SwapButton>
 
         <CurrencyInputGroup>
-          <CurrencyInputLabel>To</CurrencyInputLabel>
+          <CurrencyInputLabel id="to-label">To</CurrencyInputLabel>
           <CurrencySelect
+            label="To currency"
             rates={isConversionFromCZK() ? dailyRates.rates : [CzkRate]}
             value={toCurrency}
-            onChange={setToCurrency}
             placeholder="Select target currency..."
             isDisabled={!isConversionFromCZK()}
-            label="To currency"
+            aria-label="Select target currency"
+            onChange={setToCurrency}
           />
         </CurrencyInputGroup>
       </ConverterGrid>
 
       {toCurrency && convertedAmount !== null && (
-        <ResultContainer>
+        <ResultContainer role="region" aria-label="Conversion result">
           <ResultEquals>{inputValue} =</ResultEquals>
           <ResultAmount>
             {Intl.NumberFormat("cs-CZ", {
@@ -124,7 +129,8 @@ export function Converter({ dailyRates }: Props) {
             }).format(convertedAmount)}{" "}
             {toCurrency.country} {toCurrency.currency}
           </ResultAmount>
-          <RateInfo>
+
+          <RateInfo aria-label="Exchange rate information">
             1 {fromCurrency.code} ={" "}
             {getConversionRate(fromCurrency, toCurrency)?.toFixed(3)}{" "}
             {toCurrency.code}
@@ -183,9 +189,14 @@ const SwapButton = styled.button`
   align-items: center;
   justify-content: center;
 
-  &:hover {
+  &:hover:not(:disabled) {
     border-color: var(--gold);
     background: var(--goldSoft);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 `;
 

@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Converter } from "@/components/converter/Converter";
 import type { CnbDailyRates } from "@/types/CnbDailyRates";
@@ -25,30 +25,45 @@ const mockDailyRates: CnbDailyRates = {
   ],
 };
 
-describe("Converter", () => {
-  it("renders initial state correctly", () => {
-    render(<Converter dailyRates={mockDailyRates} />);
+const INPUT_FIELD_NAME = "Enter amount to convert from CZK";
+const SELECT_SOURCE_CURRENCY = "Select source currency";
+const SELECT_TARGET_CURRENCY = "Select target currency";
+const CZK_CURRENCY_LABEL = "CZK | Czech Republic koruna";
+const AUD_CURRENCY_LABEL = "AUD | Australia dollar";
+const SWAP_BUTTON_LABEL = "Swap source and target currencies";
 
+describe("Converter", () => {
+  let user: ReturnType<typeof userEvent.setup>;
+
+  beforeEach(() => {
+    user = userEvent.setup();
+    render(<Converter dailyRates={mockDailyRates} />);
+  });
+
+
+  it("renders initial state correctly", () => {
     //Label + Input Field is present and set to 0 CZK
     expect(screen.getByText("Amount")).toBeInTheDocument();
-    const inputField = screen.getByRole("textbox", { name: "Amount in CZK" });
+    const inputField = screen.getByRole("textbox", { name: INPUT_FIELD_NAME});
     expect(inputField).toBeInTheDocument();
     //NumberFormat has &nbsp; as whitespace so we use regex to match for 0 CZK with any whitespace in between
     expect(inputField).toHaveDisplayValue(/0\s+CZK/);
 
     // Label + From Currency selector is CZK and selector is disabled
     expect(screen.getByText("From")).toBeInTheDocument();
-    expect(screen.getByLabelText("From currency")).toBeInTheDocument();
-    expect(screen.getByLabelText("From currency")).toBeDisabled();
-    expect(screen.getByText("CZK | Czech Republic koruna")).toBeInTheDocument();
+    const fromCurrencySelect = screen.getByLabelText(SELECT_SOURCE_CURRENCY);
+    expect(fromCurrencySelect).toBeInTheDocument();
+    expect(fromCurrencySelect).toBeDisabled();
+    expect(screen.getByText(CZK_CURRENCY_LABEL)).toBeInTheDocument();
 
     // Swap button is present
-    expect(screen.getByLabelText("Swap currencies")).toBeInTheDocument();
+    expect(screen.getByLabelText(SWAP_BUTTON_LABEL)).toBeInTheDocument();
 
     // Label + To Currency selector is present
     expect(screen.getByText("To")).toBeInTheDocument();
-    expect(screen.getByLabelText("To currency")).toBeInTheDocument();
-    expect(screen.getByLabelText("To currency")).toBeEnabled();
+    const toCurrencySelect = screen.getByLabelText(SELECT_TARGET_CURRENCY);
+    expect(toCurrencySelect).toBeInTheDocument();
+    expect(toCurrencySelect).toBeEnabled();
     expect(screen.getByText("Select target currency...")).toBeInTheDocument();
 
     // No conversion result is shown
@@ -57,17 +72,15 @@ describe("Converter", () => {
   });
 
   it("converts from CZK correctly", async () => {
-    const user = userEvent.setup();
-    render(<Converter dailyRates={mockDailyRates} />);
-
     // Input 100 CZK
-    const input = screen.getByRole("textbox", { name: "Amount in CZK" });
-    await user.type(input, "100");
+    const inputField = screen.getByRole("textbox", { name: INPUT_FIELD_NAME });
+    await user.type(inputField, "100");
+    expect(inputField).toHaveDisplayValue(/100\s+CZK/);
 
     // Open and select AUD from dropdown
-    const selectContainer = screen.getByLabelText("To currency");
+    const selectContainer = screen.getByLabelText(SELECT_TARGET_CURRENCY);
     await user.click(selectContainer);
-    const audOption = screen.getByText("AUD | Australia dollar");
+    const audOption = screen.getByText(AUD_CURRENCY_LABEL);
     await user.click(audOption);
 
     // Check conversion result
@@ -79,32 +92,29 @@ describe("Converter", () => {
   });
 
   it("swaps currencies correctly", async () => {
-    const user = userEvent.setup();
-    render(<Converter dailyRates={mockDailyRates} />);
-
-    // Input 100 CZK
-    const input = screen.getByRole("textbox", { name: "Amount in CZK" });
-    await user.type(input, "100");
-    expect(input).toHaveDisplayValue(/100\s+CZK/);
+ // Input 100 CZK
+    const inputField = screen.getByRole("textbox", { name: INPUT_FIELD_NAME });
+    await user.type(inputField, "100");
+    expect(inputField).toHaveDisplayValue(/100\s+CZK/);
 
     // Select AUD from To dropdown
-    const selectContainer = screen.getByLabelText("To currency");
+    const selectContainer = screen.getByLabelText(SELECT_TARGET_CURRENCY);
     await user.click(selectContainer);
-    const audOption = screen.getByText("AUD | Australia dollar");
+    const audOption = screen.getByText(AUD_CURRENCY_LABEL);
     await user.click(audOption);
 
     // Click swap button
-    const swapButton = screen.getByLabelText("Swap currencies");
+    const swapButton = screen.getByLabelText(SWAP_BUTTON_LABEL);
     await user.click(swapButton);
 
     // Input field now should be AUD and set to 100 AUD
-    const inputAUD = screen.getByRole("textbox", { name: "Amount in AUD" });
+    const inputAUD = screen.getByRole("textbox", { name: "Enter amount to convert from AUD" });
     expect(inputAUD).toBeInTheDocument();
     expect(inputAUD).toHaveDisplayValue(/100\s+AUD/);
 
     // Check that From selector is now enabled and To selector is disabled
-    expect(screen.getByLabelText("From currency")).toBeEnabled();
-    expect(screen.getByLabelText("To currency")).toBeDisabled();
+    expect(screen.getByLabelText(SELECT_SOURCE_CURRENCY)).toBeEnabled();
+    expect(screen.getByLabelText(SELECT_TARGET_CURRENCY)).toBeDisabled();
 
     // Rate info is correct
     expect(screen.getByText("100 AUD =")).toBeInTheDocument();
@@ -114,37 +124,28 @@ describe("Converter", () => {
   });
 
   it("handles invalid input (letters) correctly", async () => {
-    const user = userEvent.setup();
-    render(<Converter dailyRates={mockDailyRates} />);
-
-    const input = screen.getByRole("textbox", { name: "Amount in CZK" });
+    const input = screen.getByRole("textbox", { name: INPUT_FIELD_NAME });
     await user.type(input, "abc");
 
     expect(input).toHaveDisplayValue(/0\s+CZK/);
   });
 
   it("handles leading zeros correctly", async () => {
-    const user = userEvent.setup();
-    render(<Converter dailyRates={mockDailyRates} />);
-
-    const input = screen.getByRole("textbox", { name: "Amount in CZK" });
+    const input = screen.getByRole("textbox", { name: INPUT_FIELD_NAME });
     await user.type(input, "000123");
 
     expect(input).toHaveDisplayValue(/123\s+CZK/);
   });
 
   it("formats large numbers correctly", async () => {
-    const user = userEvent.setup();
-    render(<Converter dailyRates={mockDailyRates} />);
-
-    const input = screen.getByRole("textbox", { name: "Amount in CZK" });
+    const input = screen.getByRole("textbox", { name: INPUT_FIELD_NAME });
     await user.type(input, "1000000");
 
     expect(input).toHaveDisplayValue(/1\s+000\s+000\s+CZK/);
 
-    const selectContainer = screen.getByLabelText("To currency");
+    const selectContainer = screen.getByLabelText(SELECT_TARGET_CURRENCY);
     await user.click(selectContainer);
-    const audOption = screen.getByText("AUD | Australia dollar");
+    const audOption = screen.getByText(AUD_CURRENCY_LABEL);
     await user.click(audOption);
 
     expect(screen.getByText("1 000 000 CZK =")).toBeInTheDocument();
@@ -152,15 +153,12 @@ describe("Converter", () => {
   });
 
   it("handles decimal numbers correctly", async () => {
-    const user = userEvent.setup();
-    render(<Converter dailyRates={mockDailyRates} />);
-
-    const input = screen.getByRole("textbox", { name: "Amount in CZK" });
+    const input = screen.getByRole("textbox", { name: INPUT_FIELD_NAME });
     await user.type(input, "10,50");
 
-    const selectContainer = screen.getByLabelText("To currency");
+    const selectContainer = screen.getByLabelText(SELECT_TARGET_CURRENCY);
     await user.click(selectContainer);
-    const audOption = screen.getByText("AUD | Australia dollar");
+    const audOption = screen.getByText(AUD_CURRENCY_LABEL);
     await user.click(audOption);
 
     // Check if decimals are formatted correctly

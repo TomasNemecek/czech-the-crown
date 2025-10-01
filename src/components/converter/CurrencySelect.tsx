@@ -1,19 +1,25 @@
 import Select, { type StylesConfig } from "react-select";
 import type { CnbRate } from "@/types/CnbDailyRates";
+import { sanitizeInput } from "@/util/utils";
 
 type Props = {
+  label: string;
   rates: CnbRate[];
   value: CnbRate | null;
-  onChange: (rate: CnbRate) => void;
   placeholder?: string;
-  isDisabled: boolean;
-  label: string;
+  isDisabled?: boolean;
+  "aria-label"?: string;
+  onChange: (rate: CnbRate) => void;
 };
 
 type Option = {
   label: string;
   value: CnbRate;
 };
+
+function formatCurrencyLabel(rate: CnbRate): string {
+  return `${rate.code} | ${rate.country} ${rate.currency}`;
+}
 
 const selectStyles: StylesConfig<Option> = {
   control: (base) => ({
@@ -34,34 +40,41 @@ const selectStyles: StylesConfig<Option> = {
 };
 
 export function CurrencySelect({
+  label,
   rates,
   value,
-  onChange,
   placeholder = "Select currency...",
   isDisabled = false,
-  label,
+  "aria-label": ariaLabel,
+  onChange,
 }: Props) {
   const options: Option[] = rates.map((rate) => ({
-    label: `${rate.code} | ${rate.country} ${rate.currency}`,
+    label: formatCurrencyLabel(rate),
     value: rate,
   }));
 
+  const handleInputChange = (inputValue: string) => {
+    return sanitizeInput(inputValue, 50);
+  };
+
   const selectedOption = value
     ? {
-        label: `${value.code} | ${value.country} ${value.currency} `,
-        value,
-      }
+      label: formatCurrencyLabel(value),
+      value,
+    }
     : null;
 
   return (
     <Select<Option>
       options={options}
       value={selectedOption}
-      onChange={(option) => option && onChange(option.value)}
       placeholder={placeholder}
       isDisabled={isDisabled}
       styles={selectStyles}
-      aria-label={label}
+      aria-label={ariaLabel ?? label}
+      inputId={`currency-select-${label.toLowerCase().replace(/\s+/g, '-')}`}
+      onChange={(option) => option && onChange(option.value)}
+      onInputChange={handleInputChange}
     />
   );
 }
