@@ -45,14 +45,13 @@ const InputNumeric = styled.input`
   padding: var(--spacing-sm) var(--spacing-sm);
  border-radius: var(--radius-md);
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--card);
   color: var(--text);
   font-size: var(--font-lg);
   font-variant-numeric: tabular-nums;
-  
   &:focus {
     border-color: var(--gold);
-    box-shadow: var(--shadow-focus);
+    box-shadow: var(--shadow-focus)
     outline: none;
   }
 `;

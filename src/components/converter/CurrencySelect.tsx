@@ -22,20 +22,21 @@ function formatCurrencyLabel(rate: CnbRate): string {
 }
 
 const selectStyles: StylesConfig<Option> = {
-  control: (base) => ({
+  control: (base, state) => ({
     ...base,
-    width: "100%",
-    borderColor: "var(--border)",
+    borderColor: state.isFocused ? "var(--gold)" : "var(--border)",
     borderRadius: "var(--radius-md)",
-    transition: "none",
+    boxShadow: state.isFocused ? "var(--shadow-focus)" : "none",
     "&:hover": {
       borderColor: "var(--gold)",
     },
   }),
-  container: (base) => ({
+  valueContainer: (base) => ({
     ...base,
-    width: "100%",
-    transition: "none",
+    "& input": {
+      outline: "none",
+      boxShadow: "none",
+    }
   }),
 };
 

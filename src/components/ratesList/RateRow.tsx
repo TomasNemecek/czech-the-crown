@@ -21,7 +21,7 @@ export function RateRow({ rate }: Props) {
       <RowLeft>
         <CountryCodeBadge aria-hidden="true">{rate.code}</CountryCodeBadge>
         <CurrencyText>
-          {rate.country} | {rate.currency}
+          {rate.country} {rate.currency}
         </CurrencyText>
       </RowLeft>
       <div>
