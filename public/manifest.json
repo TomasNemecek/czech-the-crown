@@ -1,28 +1,25 @@
 {
-    "name": "Czech the Crown",
-    "short_name": "Czech Crown",
-    "description": "Real-time Czech koruna (CZK) exchange rates from Czech National Bank",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#f7f6f2",
-    "theme_color": "#d4af37",
-    "orientation": "portrait-primary",
-    "icons": [
-        {
-            "src": "/favicon.svg",
-            "sizes": "any",
-            "type": "image/svg+xml",
-            "purpose": "any maskable"
-        },
-        {
-            "src": "/logo.svg",
-            "sizes": "any",
-            "type": "image/svg+xml"
-        }
-    ],
-    "categories": [
-        "finance",
-        "utilities"
-    ],
-    "lang": "en"
+  "name": "Czech the Crown",
+  "short_name": "Czech Crown",
+  "description": "Real-time Czech koruna (CZK) exchange rates from Czech National Bank",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f6f2",
+  "theme_color": "#d4af37",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["finance", "utilities"],
+  "lang": "en"
 }

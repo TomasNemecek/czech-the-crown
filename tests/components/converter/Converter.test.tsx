@@ -40,7 +40,6 @@ describe("Converter", () => {
     render(<Converter dailyRates={mockDailyRates} />);
   });
 
-
   it("renders initial state correctly", () => {
     //Label + Input Field is present and set to 0 CZK
     expect(screen.getByText("Amount")).toBeInTheDocument();
@@ -110,7 +109,9 @@ describe("Converter", () => {
     await user.click(swapButton);
 
     // Input field now should be AUD and set to 100 AUD
-    const inputAUD = screen.getByRole("textbox", { name: "Enter amount to convert from AUD" });
+    const inputAUD = screen.getByRole("textbox", {
+      name: "Enter amount to convert from AUD",
+    });
     expect(inputAUD).toBeInTheDocument();
     expect(inputAUD).toHaveDisplayValue(/100\s+AUD/);
 

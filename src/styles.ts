@@ -23,7 +23,7 @@ export const theme = {
     xl: "24px",
     xxl: "32px",
     xxxl: "48px",
-    buttonSize: "40px"
+    buttonSize: "40px",
   },
   typography: {
     fontSize: {
@@ -35,7 +35,7 @@ export const theme = {
       xl: "18px",
       xxl: "28px",
       xxxl: "32px",
-    }
+    },
   },
   borderRadius: {
     sm: "6px",
@@ -47,7 +47,7 @@ export const theme = {
   shadows: {
     sm: "0 1px 0 rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.55)",
     md: "0 10px 30px rgba(0,0,0,0.08)",
-    focus: "0 0 0 3px rgba(212, 175, 55, 0.25)"
+    focus: "0 0 0 3px rgba(212, 175, 55, 0.25)",
   },
   transitions: {
     fast: "0.06s ease",

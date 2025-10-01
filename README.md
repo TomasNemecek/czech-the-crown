@@ -20,8 +20,9 @@ Check out the demo: [czech-the-crown.vercel.app](https://czech-the-crown.vercel.
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js 18+
-- PNPM 8+ 
+- PNPM 8+
 
 ### Installation
 

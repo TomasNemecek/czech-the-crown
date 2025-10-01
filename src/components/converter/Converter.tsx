@@ -132,18 +132,24 @@ export function Converter({ dailyRates }: Props) {
 
           <RateInfo aria-label="Exchange rate information">
             1 {fromCurrency.code} ={" "}
-            {getConversionRate(fromCurrency, toCurrency)?.toLocaleString("cs-CZ", {
-              minimumFractionDigits: 3,
-              maximumFractionDigits: 3,
-              useGrouping: true,
-            })}{" "}
+            {getConversionRate(fromCurrency, toCurrency)?.toLocaleString(
+              "cs-CZ",
+              {
+                minimumFractionDigits: 3,
+                maximumFractionDigits: 3,
+                useGrouping: true,
+              },
+            )}{" "}
             {toCurrency.code}
             <br />1 {toCurrency.code} ={" "}
-            {getConversionRate(toCurrency, fromCurrency)?.toLocaleString("cs-CZ", {
-              minimumFractionDigits: 3,
-              maximumFractionDigits: 3,
-              useGrouping: true,
-            })}{" "}
+            {getConversionRate(toCurrency, fromCurrency)?.toLocaleString(
+              "cs-CZ",
+              {
+                minimumFractionDigits: 3,
+                maximumFractionDigits: 3,
+                useGrouping: true,
+              },
+            )}{" "}
             {fromCurrency.code}
           </RateInfo>
           <DateInfo>Last updated on {dailyRates.date} at 14.30</DateInfo>
@@ -164,10 +170,13 @@ const ConverterLayout = styled.div`
     gap: var(--spacing-md);
     align-items: end;
 
-   grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
 
     @media (min-width: 768px) {
-      grid-template-columns: minmax(150px, 1fr) minmax(200px, 1fr) auto minmax(200px, 1fr);
+      grid-template-columns: minmax(150px, 1fr) minmax(200px, 1fr) auto minmax(
+          200px,
+          1fr
+        );
     }
 
     > button {
@@ -182,7 +191,7 @@ const ConverterLayout = styled.div`
 `;
 
 const SwapButton = styled.button`
-  background: var(--card );
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
   width: var(--spacing-buttonSize);

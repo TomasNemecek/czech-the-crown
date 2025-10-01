@@ -34,9 +34,7 @@ export default function App() {
         </HeaderBar>
 
         {/*TODO: make nicer loading component */}
-        <Subtle>
-          {isLoading && "Loading latest CNB exchange rates…"}
-        </Subtle>
+        <Subtle>{isLoading && "Loading latest CNB exchange rates…"}</Subtle>
 
         {/* TODO: Make nicer error component */}
         {isError && (
