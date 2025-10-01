@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchCnbDailyRates } from "@/api/cnb";
-import { GlobalStyle, Shell, HeaderBar, Title, Subtle, Card } from "@/styles";
+import { GlobalStyle, theme, Card } from "@/styles";
 import { Logo } from "@/assets/Logo";
 import { RateList } from "@/components/ratesList/RateList";
-import { theme } from "@/theme";
 import { Converter } from "@/components/converter/Converter";
 import { shouldRefetchRates } from "@/util/refetchLogic";
+import styled from "styled-components";
 
 export default function App() {
   const { data, isLoading, isError, error, refetch } = useQuery({
@@ -62,3 +62,29 @@ export default function App() {
     </>
   );
 }
+
+
+
+export const Shell = styled.div`
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+`;
+
+export const HeaderBar = styled.header`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+`;
+
+export const Title = styled.h1`
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.2px;
+`;
+
+export const Subtle = styled.p`
+  margin: 4px 0 16px;
+  color: var(--subtle);
+`;
