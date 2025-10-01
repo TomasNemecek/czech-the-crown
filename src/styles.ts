@@ -54,10 +54,6 @@ export const theme = {
     normal: "0.15s ease",
     none: "none",
   },
-  // Legacy properties for backward compatibility
-  //TODO REMOVE!!
-  radius: "14px",
-  shadow: "0 10px 30px rgba(0,0,0,0.08)",
 };
 
 export type AppTheme = typeof theme;
@@ -75,10 +71,6 @@ export const GlobalStyle = createGlobalStyle<{ theme: AppTheme }>`
     --border: ${({ theme }) => theme.colors.border};
     --gold: ${({ theme }) => theme.colors.gold};
     --goldSoft: ${({ theme }) => theme.colors.goldSoft};
-    --radius: ${({ theme }) => theme.radius};
-    --shadow: ${({ theme }) => theme.shadow};
-
-    --shadow: ${({ theme }) => theme.shadow};
     
     /* New design tokens */
     --spacing-xs: ${({ theme }) => theme.spacing.xs};
