@@ -74,7 +74,7 @@ export function Converter({ dailyRates }: Props) {
     <ConverterLayout role="region" aria-labelledby="converter-heading">
       <ConverterGrid>
         <CurrencyInputGroup>
-          <CurrencyInputLabel id="amount-label">Amount</CurrencyInputLabel>
+          <ConverterFieldLabel id="amount-label">Amount</ConverterFieldLabel>
           <CurrencyInput
             currencyCode={fromCurrency.code}
             value={fromAmount}
@@ -84,7 +84,7 @@ export function Converter({ dailyRates }: Props) {
         </CurrencyInputGroup>
 
         <CurrencyInputGroup>
-          <CurrencyInputLabel id="from-label">From</CurrencyInputLabel>
+          <ConverterFieldLabel id="from-label">From</ConverterFieldLabel>
           <CurrencySelect
             label="From currency"
             rates={isConversionFromCZK() ? [CzkRate] : dailyRates.rates}
@@ -105,7 +105,7 @@ export function Converter({ dailyRates }: Props) {
         </SwapButton>
 
         <CurrencyInputGroup>
-          <CurrencyInputLabel id="to-label">To</CurrencyInputLabel>
+          <ConverterFieldLabel id="to-label">To</ConverterFieldLabel>
           <CurrencySelect
             label="To currency"
             rates={isConversionFromCZK() ? dailyRates.rates : [CzkRate]}
@@ -147,27 +147,21 @@ export function Converter({ dailyRates }: Props) {
 
 const ConverterLayout = styled.div`
   background: var(--card);
-  border-radius: var(--radius);
-  padding: 24px;
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
 
   > div:first-child {
     display: grid;
-    gap: 12px;
+    gap: var(--spacing-md);
     align-items: end;
 
-    /* Default mobile layout - stacked */
-    grid-template-columns: 1fr;
+   grid-template-columns: 1fr;
 
-    /* Tablet and up - side by side */
     @media (min-width: 768px) {
-      grid-template-columns: minmax(150px, 1fr) minmax(200px, 1fr) auto minmax(
-          200px,
-          1fr
-        );
+      grid-template-columns: minmax(150px, 1fr) minmax(200px, 1fr) auto minmax(200px, 1fr);
     }
 
-    /* Stack swap button horizontally on mobile */
     > button {
       justify-self: center;
       transform: rotate(90deg);
@@ -180,9 +174,9 @@ const ConverterLayout = styled.div`
 `;
 
 const SwapButton = styled.button`
-  background: white;
+  background: var(--card );
   border: 1px solid var(--border);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   width: 40px;
   height: 40px;
   display: flex;
@@ -193,41 +187,36 @@ const SwapButton = styled.button`
     border-color: var(--gold);
     background: var(--goldSoft);
   }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
 `;
 
 const ConverterGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr auto auto 1fr;
-  gap: 12px;
+  gap: var(--spacing-md);
   align-items: center;
 `;
 
 const ResultEquals = styled.div`
-  font-size: 16px;
-  margin-top: 16px;
-  margin-bottom: 8px;
+  font-size: var(--font-lg);
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
 `;
 
 const ResultAmount = styled.div`
-  font-size: 32px;
+  font-size: var(--font-xxxl);
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-sm);
 `;
 
 const RateInfo = styled.div`
   color: var(--subtle);
-  font-size: 10px;
+  font-size: var(--font-xs);
 `;
 
-const CurrencyInputLabel = styled.label`
-  font-size: 14px;
+const ConverterFieldLabel = styled.label`
+  font-size: var(--font-md);
   color: var(--subtle);
-  margin-bottom: 4px;
+  margin-bottom: var(--spacing-xs);
 `;
 
 const CurrencyInputGroup = styled.div`
@@ -241,8 +230,8 @@ const ResultContainer = styled.div`
 
 const DateInfo = styled.div`
   color: var(--subtle);
-  font-size: 12px;
-  line-height: 1.5;
-  padding-top: 12px;
+  font-size: var(--font-sm);
+  line-height: var(--line-height-relaxed);
+  padding-top: var(--spacing-md);
   text-align: right;
 `;

@@ -63,28 +63,25 @@ export default function App() {
   );
 }
 
-
-
 export const Shell = styled.div`
   max-width: 960px;
   margin: 0 auto;
-  padding: 24px;
+  padding: var(--spacing-xl);
 `;
 
 export const HeaderBar = styled.header`
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 `;
 
 export const Title = styled.h1`
   margin: 0;
-  font-size: 28px;
-  letter-spacing: 0.2px;
+  font-size: var(--font-xxl);
 `;
 
 export const Subtle = styled.p`
-  margin: 4px 0 16px;
+  margin: var(--spacing-xs) 0 var(--spacing-lg);
   color: var(--subtle);
 `;

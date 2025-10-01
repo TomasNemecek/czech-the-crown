@@ -15,6 +15,56 @@ export const theme = {
     goldSoft: "#fff7e0",
     goldDark: "#b48918",
   },
+  spacing: {
+    xs: "4px",
+    sm: "8px",
+    md: "12px",
+    lg: "16px",
+    xl: "24px",
+    xxl: "32px",
+    xxxl: "48px",
+  },
+  typography: {
+    fontSize: {
+      xs: "10px",
+      sm: "12px",
+      base: "13.5px",
+      md: "14px",
+      lg: "16px",
+      xl: "18px",
+      xxl: "28px",
+      xxxl: "32px",
+    },
+    lineHeight: {
+      tight: "1.2",
+      normal: "1.4",
+      relaxed: "1.5",
+    },
+    letterSpacing: {
+      tight: "0.2px",
+      normal: "0.35px",
+    },
+  },
+  borderRadius: {
+    sm: "6px",
+    md: "10px",
+    lg: "12px",
+    xl: "14px",
+    full: "50%",
+  },
+  shadows: {
+    sm: "0 1px 0 rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.55)",
+    md: "0 10px 30px rgba(0,0,0,0.08)",
+    focus: "0 0 0 3px rgba(212, 175, 55, 0.25)",
+    focusVisible: "0 0 0 3px rgba(212,175,55,0.35)",
+  },
+  transitions: {
+    fast: "0.06s ease",
+    normal: "0.15s ease",
+    none: "none",
+  },
+  // Legacy properties for backward compatibility
+  //TODO REMOVE!!
   radius: "14px",
   shadow: "0 10px 30px rgba(0,0,0,0.08)",
 };
@@ -36,19 +86,52 @@ export const GlobalStyle = createGlobalStyle<{ theme: AppTheme }>`
     --goldSoft: ${({ theme }) => theme.colors.goldSoft};
     --radius: ${({ theme }) => theme.radius};
     --shadow: ${({ theme }) => theme.shadow};
+
+    --shadow: ${({ theme }) => theme.shadow};
+    
+    /* New design tokens */
+    --spacing-xs: ${({ theme }) => theme.spacing.xs};
+    --spacing-sm: ${({ theme }) => theme.spacing.sm};
+    --spacing-md: ${({ theme }) => theme.spacing.md};
+    --spacing-lg: ${({ theme }) => theme.spacing.lg};
+    --spacing-xl: ${({ theme }) => theme.spacing.xl};
+    --spacing-xxl: ${({ theme }) => theme.spacing.xxl};
+    --spacing-xxxl: ${({ theme }) => theme.spacing.xxxl};
+    
+    --font-xs: ${({ theme }) => theme.typography.fontSize.xs};
+    --font-sm: ${({ theme }) => theme.typography.fontSize.sm};
+    --font-base: ${({ theme }) => theme.typography.fontSize.base};
+    --font-md: ${({ theme }) => theme.typography.fontSize.md};
+    --font-lg: ${({ theme }) => theme.typography.fontSize.lg};
+    --font-xl: ${({ theme }) => theme.typography.fontSize.xl};
+    --font-xxl: ${({ theme }) => theme.typography.fontSize.xxl};
+    --font-xxxl: ${({ theme }) => theme.typography.fontSize.xxxl};
+    
+    --radius-sm: ${({ theme }) => theme.borderRadius.sm};
+    --radius-md: ${({ theme }) => theme.borderRadius.md};
+    --radius-lg: ${({ theme }) => theme.borderRadius.lg};
+    --radius-xl: ${({ theme }) => theme.borderRadius.xl};
+    --radius-full: ${({ theme }) => theme.borderRadius.full};
+    
+    --shadow-sm: ${({ theme }) => theme.shadows.sm};
+    --shadow-md: ${({ theme }) => theme.shadows.md};
+    --shadow-focus: ${({ theme }) => theme.shadows.focus};
   }
   * { box-sizing: border-box; }
+
   body {
     margin: 0;
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
     background: var(--bg);
     color: var(--text);
   }
+
   a { color: inherit; }
+
   :focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(212,175,55,0.35);
-    border-radius: 6px;
+    box-shadow: var(--shadow-focus);
+    border-radius: var(--radius-sm);
   }
 `;
 
@@ -59,7 +142,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: AppTheme }>`
 export const Card = styled.section`
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 16px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
 `;

@@ -32,16 +32,16 @@ export function SearchInput({
 
 const InputSearch = styled.input`
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 10px;
+  padding: var(--spacing-md) var(--spacing-md);
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: #fff;
   color: var(--text);
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-md);
 
   &:focus {
     border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+    box-shadow: var(--shadow-focus);
     outline: none;
   }
 `;

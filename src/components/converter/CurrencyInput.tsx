@@ -42,16 +42,17 @@ export function CurrencyInput({
 
 const InputNumeric = styled.input`
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 10px;
+  padding: var(--spacing-sm) var(--spacing-sm);
+ border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: #fff;
   color: var(--text);
-  font-size: 16px;
+  font-size: var(--font-lg);
   font-variant-numeric: tabular-nums;
+  
   &:focus {
     border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+    box-shadow: var(--shadow-focus);
     outline: none;
   }
 `;

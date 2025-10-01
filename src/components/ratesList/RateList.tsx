@@ -89,18 +89,19 @@ const List = styled.div`
 `;
 
 const Heading3 = styled.h3`
-  margin: 0 0 8px;
-  font-size: 16px;
-  font-weight: 700;
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--font-lg);
+  font-weight: bold;
 `;
 
 const ButtonGhost = styled.button`
-  padding: 8px 12px;
-  border-radius: 10px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: #fff;
   cursor: pointer;
-  transition: transform 0.06s ease;
+  transition: transform var(--transition-fast);
+  
   &:hover {
     transform: translateY(-1px);
   }
