@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchCnbDailyRates } from "@/api/cnb";
 import { GlobalStyle, theme, Card } from "@/styles";
-import { Logo } from "@/assets/Logo";
+import { Logo } from "@/components/Logo";
 import { RateList } from "@/components/ratesList/RateList";
 import { Converter } from "@/components/converter/Converter";
 import { shouldRefetchRates } from "@/util/refetchLogic";
