@@ -11,7 +11,10 @@ type Props = {
 
 export function RateRow({ rate }: Props) {
   const czkPerOne = perUnit(rate);
-  const formattedRate = czkPerOne.toLocaleString(undefined, { maximumFractionDigits: 3 });
+  const formattedRate = czkPerOne.toLocaleString("cs-CZ", {
+    maximumFractionDigits: 3,
+    useGrouping: true
+  });
 
   return (
     <Row

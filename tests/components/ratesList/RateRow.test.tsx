@@ -17,17 +17,17 @@ describe("RateRow", () => {
 
         expect(screen.getByText("AUD")).toBeInTheDocument();
         expect(screen.getByText("Australia dollar")).toBeInTheDocument();
-        expect(screen.getByText("13.604 CZK")).toBeInTheDocument();
+        expect(screen.getByText("13,604 CZK")).toBeInTheDocument();
         expect(screen.getByText("per 1 AUD")).toBeInTheDocument();
     });
 
     it("calculates rates correctly for different amounts and formats numbers", () => {
         const testCases = [
-            { rate: 13.604, amount: 1, code: "AUD", expected: "13.604", country: "Australia", currency: "dollar" },
-            { rate: 3.890, amount: 1, code: "BRL", expected: "3.89", country: "Brazil", currency: "real" },
-            { rate: 14.941, amount: 1, code: "CAD", expected: "14.941", country: "Canada", currency: "dollar" },
-            { rate: 15.789, amount: 100, code: "JPY", expected: "0.158", country: "Japan", currency: "yen" }, // Multi-amount
-            { rate: 1234.567, amount: 1, code: "TST", expected: "1,234.567", country: "Test", currency: "test" }, // Locale formatting
+            { rate: 13.604, amount: 1, code: "AUD", expected: "13,604", country: "Australia", currency: "dollar" },
+            { rate: 3.890, amount: 1, code: "BRL", expected: "3,89", country: "Brazil", currency: "real" },
+            { rate: 14.941, amount: 1, code: "CAD", expected: "14,941", country: "Canada", currency: "dollar" },
+            { rate: 15.789, amount: 100, code: "JPY", expected: "0,158", country: "Japan", currency: "yen" }, // Multi-amount
+            { rate: 1234.567, amount: 1, code: "TST", expected: "1 234,567", country: "Test", currency: "test" }, // Locale formatting
             { rate: 25.0, amount: 1, code: "TST", expected: "25", country: "Test", currency: "test" }, // Whole numbers
         ];
 
@@ -61,7 +61,7 @@ describe("RateRow", () => {
 
             expect(screen.getByText("SPP")).toBeInTheDocument();
             expect(screen.getByText("São Paulo & Very Long Country Name real-dollar with special chars")).toBeInTheDocument();
-            expect(screen.getByText("4.5 CZK")).toBeInTheDocument();
+            expect(screen.getByText("4,5 CZK")).toBeInTheDocument();
         });
 
         it("handles minimal data gracefully", () => {
