@@ -60,7 +60,7 @@ export function RateList({ rates }: Props) {
       </List>
 
       {hasMoreRowsToShow && (
-        <div style={{ marginTop: 10, textAlign: "center" }}>
+        <div style={{ marginTop: "var(--spacing-sm)", textAlign: "center" }}>
           <ButtonGhost
             onClick={() => setVisibleCount(filteredRates.length)}
             aria-label={`Show all ${filteredRates.length} exchange rates`}
@@ -71,7 +71,7 @@ export function RateList({ rates }: Props) {
       )}
 
       {!!filteredRates.length || (
-        <p style={{ textAlign: "center" }} role="status" aria-live="polite">
+        <p style={{ textAlign: "center", margin: "var(--spacing-md) 0" }} role="status" aria-live="polite">
           No matches found.
         </p>
       )}
@@ -89,18 +89,19 @@ const List = styled.div`
 `;
 
 const Heading3 = styled.h3`
-  margin: 0 0 8px;
-  font-size: 16px;
-  font-weight: 700;
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--font-lg);
+  font-weight: bold;
 `;
 
 const ButtonGhost = styled.button`
-  padding: 8px 12px;
-  border-radius: 10px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: #fff;
   cursor: pointer;
-  transition: transform 0.06s ease;
+  transition: transform var(--transition-fast);
+  
   &:hover {
     transform: translateY(-1px);
   }

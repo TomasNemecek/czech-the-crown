@@ -1,6 +1,72 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-export const GlobalStyle = createGlobalStyle<{ theme: any }>`
+// =============================================================================
+// THEME CONFIGURATION
+// =============================================================================
+
+export const theme = {
+  colors: {
+    bg: "#f7f6f2",
+    card: "#ffffff",
+    text: "#1f2937",
+    subtle: "#6b7280",
+    border: "#e5e7eb",
+    gold: "#d4af37",
+    goldSoft: "#fff7e0",
+    goldDark: "#b48918",
+  },
+  spacing: {
+    xs: "4px",
+    sm: "8px",
+    md: "12px",
+    lg: "16px",
+    xl: "24px",
+    xxl: "32px",
+    xxxl: "48px",
+    buttonSize: "40px"
+  },
+  typography: {
+    fontSize: {
+      xs: "10px",
+      sm: "12px",
+      base: "13.5px",
+      md: "14px",
+      lg: "16px",
+      xl: "18px",
+      xxl: "28px",
+      xxxl: "32px",
+    }
+  },
+  borderRadius: {
+    sm: "6px",
+    md: "10px",
+    lg: "12px",
+    xl: "14px",
+    full: "50%",
+  },
+  shadows: {
+    sm: "0 1px 0 rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.55)",
+    md: "0 10px 30px rgba(0,0,0,0.08)",
+    focus: "0 0 0 3px rgba(212, 175, 55, 0.25)"
+  },
+  transitions: {
+    fast: "0.06s ease",
+    normal: "0.15s ease",
+    none: "none",
+  },
+  // Legacy properties for backward compatibility
+  //TODO REMOVE!!
+  radius: "14px",
+  shadow: "0 10px 30px rgba(0,0,0,0.08)",
+};
+
+export type AppTheme = typeof theme;
+
+// =============================================================================
+// GLOBAL STYLES
+// =============================================================================
+
+export const GlobalStyle = createGlobalStyle<{ theme: AppTheme }>`
   :root {
     --bg: ${({ theme }) => theme.colors.bg};
     --card: ${({ theme }) => theme.colors.card};
@@ -11,146 +77,69 @@ export const GlobalStyle = createGlobalStyle<{ theme: any }>`
     --goldSoft: ${({ theme }) => theme.colors.goldSoft};
     --radius: ${({ theme }) => theme.radius};
     --shadow: ${({ theme }) => theme.shadow};
+
+    --shadow: ${({ theme }) => theme.shadow};
+    
+    /* New design tokens */
+    --spacing-xs: ${({ theme }) => theme.spacing.xs};
+    --spacing-sm: ${({ theme }) => theme.spacing.sm};
+    --spacing-md: ${({ theme }) => theme.spacing.md};
+    --spacing-lg: ${({ theme }) => theme.spacing.lg};
+    --spacing-xl: ${({ theme }) => theme.spacing.xl};
+    --spacing-xxl: ${({ theme }) => theme.spacing.xxl};
+    --spacing-xxxl: ${({ theme }) => theme.spacing.xxxl};
+    --spacing-buttonSize: ${({ theme }) => theme.spacing.buttonSize};
+    
+    --font-xs: ${({ theme }) => theme.typography.fontSize.xs};
+    --font-sm: ${({ theme }) => theme.typography.fontSize.sm};
+    --font-base: ${({ theme }) => theme.typography.fontSize.base};
+    --font-md: ${({ theme }) => theme.typography.fontSize.md};
+    --font-lg: ${({ theme }) => theme.typography.fontSize.lg};
+    --font-xl: ${({ theme }) => theme.typography.fontSize.xl};
+    --font-xxl: ${({ theme }) => theme.typography.fontSize.xxl};
+    --font-xxxl: ${({ theme }) => theme.typography.fontSize.xxxl};
+    
+    --radius-sm: ${({ theme }) => theme.borderRadius.sm};
+    --radius-md: ${({ theme }) => theme.borderRadius.md};
+    --radius-lg: ${({ theme }) => theme.borderRadius.lg};
+    --radius-xl: ${({ theme }) => theme.borderRadius.xl};
+    --radius-full: ${({ theme }) => theme.borderRadius.full};
+    
+    --shadow-sm: ${({ theme }) => theme.shadows.sm};
+    --shadow-md: ${({ theme }) => theme.shadows.md};
+    --shadow-focus: ${({ theme }) => theme.shadows.focus};
+
+    --transition-fast: ${({ theme }) => theme.transitions.fast};
+    --transition-normal: ${({ theme }) => theme.transitions.normal};
+    --transition-none: ${({ theme }) => theme.transitions.none};
+
   }
   * { box-sizing: border-box; }
+
   body {
     margin: 0;
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
     background: var(--bg);
     color: var(--text);
   }
+
   a { color: inherit; }
+
   :focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(212,175,55,0.35);
-    border-radius: 6px;
+    box-shadow: var(--shadow-focus);
+    border-radius: var(--radius-sm);
   }
 `;
 
-export const Shell = styled.div`
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 24px;
-`;
-
-export const HeaderBar = styled.header`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-`;
-
-export const Title = styled.h1`
-  margin: 0;
-  font-size: 28px;
-  letter-spacing: 0.2px;
-`;
-
-export const Subtle = styled.p`
-  margin: 4px 0 16px;
-  color: var(--subtle);
-`;
+// =============================================================================
+// UI COMPONENTS
+// =============================================================================
 
 export const Card = styled.section`
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 16px;
-`;
-
-/* Search input */
-export const InputSearch = styled.input`
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: #fff;
-  color: var(--text);
-  margin-bottom: 12px;
-
-  &:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
-    outline: none;
-  }
-`;
-
-/* Rate row */
-export const Row = styled.div`
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: baseline;
-  gap: 10px;
-  padding: 10px 8px;
-  border-bottom: 1px solid var(--border);
-
-  &:hover {
-    background: var(--goldSoft);
-  }
-`;
-
-export const RowLeft = styled.div`
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  min-width: 0;
-`;
-
-export const CountryCodeBadge = styled.span`
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.35px;
-  color: var(--text);
-  background: linear-gradient(180deg, #fffdf3 0%, #fff4cf 100%);
-  border: 1px solid rgba(212, 175, 55, 0.45);
-  box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.55);
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    box-shadow 0.15s ease,
-    transform 0.06s ease;
-`;
-
-export const CurrencyText = styled.span`
-  color: var(--subtle);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 13.5px;
-`;
-
-export const Figure = styled.div`
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-  font-size: 14px;
-`;
-
-export const Subtext = styled.div`
-  color: var(--subtle);
-  font-size: 12px;
-  text-align: right;
-`;
-
-// --- Converter styles ---
-
-export const InputNumeric = styled.input`
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: #fff;
-  color: var(--text);
-  font-size: 16px;
-  font-variant-numeric: tabular-nums;
-  &:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
-    outline: none;
-  }
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
 `;

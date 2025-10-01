@@ -21,7 +21,7 @@ export function RateRow({ rate }: Props) {
       <RowLeft>
         <CountryCodeBadge aria-hidden="true">{rate.code}</CountryCodeBadge>
         <CurrencyText>
-          {rate.country} | {rate.currency}
+          {rate.country} {rate.currency}
         </CurrencyText>
       </RowLeft>
       <div>
@@ -42,8 +42,8 @@ const Row = styled.div`
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: baseline;
-  gap: 10px;
-  padding: 10px 8px;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-sm);
   border-bottom: 1px solid var(--border);
 
   &:hover {
@@ -54,27 +54,25 @@ const Row = styled.div`
 const RowLeft = styled.div`
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: var(--spacing-sm);
   min-width: 0;
 `;
 
 const CountryCodeBadge = styled.span`
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 12px;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--spacing-lg);
+  font-size: var(--font-sm);
   font-weight: 600;
-  letter-spacing: 0.35px;
+  letter-spacing: var(--letter-spacing-normal);
   color: var(--text);
   background: linear-gradient(180deg, #fffdf3 0%, #fff4cf 100%);
   border: 1px solid rgba(212, 175, 55, 0.45);
-  box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.55);
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    box-shadow 0.15s ease,
-    transform 0.06s ease;
+  box-shadow: var(--shadow-sm);
+  transition: 
+    background var(--transition-normal),
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal),
+    transform var(--transition-fast);
 `;
 
 const CurrencyText = styled.span`
@@ -82,18 +80,18 @@ const CurrencyText = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 13.5px;
+  font-size: var(--font-base);
 `;
 
 const Figure = styled.div`
-  font-weight: 700;
+  font-weight: bold;
   font-variant-numeric: tabular-nums;
   text-align: right;
-  font-size: 14px;
+  font-size: var(--font-md);
 `;
 
 const Subtext = styled.div`
   color: var(--subtle);
-  font-size: 12px;
+  font-size: var(--font-sm);
   text-align: right;
 `;

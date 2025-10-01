@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchCnbDailyRates } from "@/api/cnb";
-import { GlobalStyle, Shell, HeaderBar, Title, Subtle, Card } from "@/styles";
+import { GlobalStyle, theme, Card } from "@/styles";
 import { Logo } from "@/assets/Logo";
 import { RateList } from "@/components/ratesList/RateList";
-import { theme } from "@/theme";
 import { Converter } from "@/components/converter/Converter";
 import { shouldRefetchRates } from "@/util/refetchLogic";
+import styled from "styled-components";
 
 export default function App() {
   const { data, isLoading, isError, error, refetch } = useQuery({
@@ -36,11 +36,6 @@ export default function App() {
         {/*TODO: make nicer loading component */}
         <Subtle>
           {isLoading && "Loading latest CNB exchange rates…"}
-          {data && (
-            <>
-              Valid for {data.date} (#{data.sequence})
-            </>
-          )}
         </Subtle>
 
         {/* TODO: Make nicer error component */}
@@ -54,7 +49,7 @@ export default function App() {
         {data && (
           <>
             <Converter dailyRates={data} />
-            <div style={{ height: 12 }} />
+            <div style={{ height: "var(--spacing-md)" }} />
             <RateList rates={data.rates} />
           </>
         )}
@@ -62,3 +57,26 @@ export default function App() {
     </>
   );
 }
+
+export const Shell = styled.div`
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+`;
+
+export const HeaderBar = styled.header`
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+`;
+
+export const Title = styled.h1`
+  margin: 0;
+  font-size: var(--font-xxl);
+`;
+
+export const Subtle = styled.p`
+  margin: var(--spacing-xs) 0 var(--spacing-lg);
+  color: var(--subtle);
+`;
