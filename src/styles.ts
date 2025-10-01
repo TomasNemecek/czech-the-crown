@@ -23,6 +23,7 @@ export const theme = {
     xl: "24px",
     xxl: "32px",
     xxxl: "48px",
+    buttonSize: "40px"
   },
   typography: {
     fontSize: {
@@ -34,16 +35,7 @@ export const theme = {
       xl: "18px",
       xxl: "28px",
       xxxl: "32px",
-    },
-    lineHeight: {
-      tight: "1.2",
-      normal: "1.4",
-      relaxed: "1.5",
-    },
-    letterSpacing: {
-      tight: "0.2px",
-      normal: "0.35px",
-    },
+    }
   },
   borderRadius: {
     sm: "6px",
@@ -55,8 +47,7 @@ export const theme = {
   shadows: {
     sm: "0 1px 0 rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.55)",
     md: "0 10px 30px rgba(0,0,0,0.08)",
-    focus: "0 0 0 3px rgba(212, 175, 55, 0.25)",
-    focusVisible: "0 0 0 3px rgba(212,175,55,0.35)",
+    focus: "0 0 0 3px rgba(212, 175, 55, 0.25)"
   },
   transitions: {
     fast: "0.06s ease",
@@ -97,6 +88,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: AppTheme }>`
     --spacing-xl: ${({ theme }) => theme.spacing.xl};
     --spacing-xxl: ${({ theme }) => theme.spacing.xxl};
     --spacing-xxxl: ${({ theme }) => theme.spacing.xxxl};
+    --spacing-buttonSize: ${({ theme }) => theme.spacing.buttonSize};
     
     --font-xs: ${({ theme }) => theme.typography.fontSize.xs};
     --font-sm: ${({ theme }) => theme.typography.fontSize.sm};
@@ -116,6 +108,11 @@ export const GlobalStyle = createGlobalStyle<{ theme: AppTheme }>`
     --shadow-sm: ${({ theme }) => theme.shadows.sm};
     --shadow-md: ${({ theme }) => theme.shadows.md};
     --shadow-focus: ${({ theme }) => theme.shadows.focus};
+
+    --transition-fast: ${({ theme }) => theme.transitions.fast};
+    --transition-normal: ${({ theme }) => theme.transitions.normal};
+    --transition-none: ${({ theme }) => theme.transitions.none};
+
   }
   * { box-sizing: border-box; }
 

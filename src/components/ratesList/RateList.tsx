@@ -60,7 +60,7 @@ export function RateList({ rates }: Props) {
       </List>
 
       {hasMoreRowsToShow && (
-        <div style={{ marginTop: 10, textAlign: "center" }}>
+        <div style={{ marginTop: "var(--spacing-sm)", textAlign: "center" }}>
           <ButtonGhost
             onClick={() => setVisibleCount(filteredRates.length)}
             aria-label={`Show all ${filteredRates.length} exchange rates`}
@@ -71,7 +71,7 @@ export function RateList({ rates }: Props) {
       )}
 
       {!!filteredRates.length || (
-        <p style={{ textAlign: "center" }} role="status" aria-live="polite">
+        <p style={{ textAlign: "center", margin: "var(--spacing-md) 0" }} role="status" aria-live="polite">
           No matches found.
         </p>
       )}

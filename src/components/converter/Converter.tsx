@@ -177,8 +177,8 @@ const SwapButton = styled.button`
   background: var(--card );
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
-  width: 40px;
-  height: 40px;
+  width: var(--spacing-buttonSize);
+  height: var(--spacing-buttonSize);
   display: flex;
   align-items: center;
   justify-content: center;

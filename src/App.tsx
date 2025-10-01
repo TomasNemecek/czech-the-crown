@@ -36,11 +36,6 @@ export default function App() {
         {/*TODO: make nicer loading component */}
         <Subtle>
           {isLoading && "Loading latest CNB exchange rates…"}
-          {data && (
-            <>
-              Valid for {data.date} (#{data.sequence})
-            </>
-          )}
         </Subtle>
 
         {/* TODO: Make nicer error component */}
@@ -54,7 +49,7 @@ export default function App() {
         {data && (
           <>
             <Converter dailyRates={data} />
-            <div style={{ height: 12 }} />
+            <div style={{ height: "var(--spacing-md)" }} />
             <RateList rates={data.rates} />
           </>
         )}

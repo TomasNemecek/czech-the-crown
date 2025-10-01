@@ -26,7 +26,7 @@ const selectStyles: StylesConfig<Option> = {
     ...base,
     width: "100%",
     borderColor: "var(--border)",
-    borderRadius: "10px",
+    borderRadius: "var(--radius-md)",
     transition: "none",
     "&:hover": {
       borderColor: "var(--gold)",
