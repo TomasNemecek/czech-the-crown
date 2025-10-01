@@ -129,6 +129,7 @@ export function Converter({ dailyRates }: Props) {
             }).format(convertedAmount)}{" "}
             {toCurrency.country} {toCurrency.currency}
           </ResultAmount>
+
           <RateInfo aria-label="Exchange rate information">
             1 {fromCurrency.code} ={" "}
             {getConversionRate(fromCurrency, toCurrency)?.toFixed(3)}{" "}

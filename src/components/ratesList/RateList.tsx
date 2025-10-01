@@ -1,6 +1,7 @@
 import { useMemo, useState, useCallback } from "react";
+import styled from "styled-components";
 import type { CnbRate } from "@/types/CnbDailyRates";
-import { Card, List, ButtonGhost, Heading3 } from "@/styles";
+import { Card } from "@/styles";
 import { RateRow } from "@/components/ratesList/RateRow";
 import { SearchInput } from "@/components/ratesList/SearchInput";
 
@@ -60,7 +61,7 @@ export function RateList({ rates }: Props) {
 
       {hasMoreRowsToShow && (
         <div style={{ marginTop: 10, textAlign: "center" }}>
-          <ButtonGhost 
+          <ButtonGhost
             onClick={() => setVisibleCount(filteredRates.length)}
             aria-label={`Show all ${filteredRates.length} exchange rates`}
           >
@@ -81,3 +82,26 @@ export function RateList({ rates }: Props) {
 function normalizeText(input: string): string {
   return input.toLowerCase().trim();
 }
+
+const List = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+`;
+
+const Heading3 = styled.h3`
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+const ButtonGhost = styled.button`
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  transition: transform 0.06s ease;
+  &:hover {
+    transform: translateY(-1px);
+  }
+`;

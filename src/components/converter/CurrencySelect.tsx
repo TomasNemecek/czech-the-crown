@@ -1,5 +1,6 @@
 import Select, { type StylesConfig } from "react-select";
 import type { CnbRate } from "@/types/CnbDailyRates";
+import { sanitizeInput } from "@/util/utils";
 
 type Props = {
   label: string;
@@ -52,23 +53,28 @@ export function CurrencySelect({
     value: rate,
   }));
 
+  const handleInputChange = (inputValue: string) => {
+    return sanitizeInput(inputValue, 50);
+  };
+
   const selectedOption = value
     ? {
-        label: formatCurrencyLabel(value),
-        value,
-      }
+      label: formatCurrencyLabel(value),
+      value,
+    }
     : null;
 
   return (
     <Select<Option>
       options={options}
       value={selectedOption}
-      onChange={(option) => option && onChange(option.value)}
       placeholder={placeholder}
       isDisabled={isDisabled}
       styles={selectStyles}
       aria-label={ariaLabel ?? label}
       inputId={`currency-select-${label.toLowerCase().replace(/\s+/g, '-')}`}
+      onChange={(option) => option && onChange(option.value)}
+      onInputChange={handleInputChange}
     />
   );
 }

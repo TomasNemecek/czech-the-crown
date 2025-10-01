@@ -76,12 +76,6 @@ export const InputSearch = styled.input`
   }
 `;
 
-/* List wrapper */
-export const List = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-`;
-
 /* Rate row */
 export const Row = styled.div`
   display: grid;
@@ -141,24 +135,6 @@ export const Subtext = styled.div`
   color: var(--subtle);
   font-size: 12px;
   text-align: right;
-`;
-
-export const ButtonGhost = styled.button`
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: #fff;
-  cursor: pointer;
-  transition: transform 0.06s ease;
-  &:hover {
-    transform: translateY(-1px);
-  }
-`;
-
-export const Heading3 = styled.h3`
-  margin: 0 0 8px;
-  font-size: 16px;
-  font-weight: 700;
 `;
 
 // --- Converter styles ---
