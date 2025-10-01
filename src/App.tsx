@@ -5,13 +5,23 @@ import { Logo } from "@/assets/Logo";
 import { RateList } from "@/components/ratesList/RateList";
 import { theme } from "@/theme";
 import { Converter } from "@/components/converter/Converter";
+import { shouldRefetchRates } from "@/util/refetchLogic";
 
 export default function App() {
   const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["cnb", "daily"],
     queryFn: fetchCnbDailyRates,
-    staleTime: 60_000,
-    refetchOnWindowFocus: true,
+    staleTime: 1000 * 60 * 60 * 24, // Consider data fresh for 24 hours
+    refetchOnWindowFocus: (query) => {
+      // Only refetch on window focus if it makes sense based on CNB schedule
+      // Use the actual CNB data date instead of query execution time
+      return shouldRefetchRates(query.state.data?.date);
+    },
+    refetchInterval: () => {
+      // Disable automatic background refetching - prioritize window focus handling
+      // to ensure users get the most current data when they return to the app
+      return false;
+    },
   });
 
   return (
